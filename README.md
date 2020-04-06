@@ -1,2 +1,2 @@
-# joni
-student
+#Projekti KNK - grupi 10
+
