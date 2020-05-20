@@ -2,6 +2,7 @@ package contractM;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,6 +14,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.regex.Pattern;
 
 public class SignUp extends BorderPane
 {
@@ -97,6 +104,106 @@ public class SignUp extends BorderPane
         this.setStyle("-fx-background-color:#2B4857;");
         this.setTop(hbSignUp);
         this.setCenter(gridPaneSU);
+        btnSignUp.setOnAction(e->{
+            SignUpUser();
+            emailTxt.setText("");
+            passwordTxt.setText("");
+            userTxt.setText("");
+        });
 
     }
+
+    private boolean isValid(String email)
+    {
+
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+
+    }
+
+
+    private void SignUpUser()
+    {
+        if(emailTxt.getText().isEmpty() || userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill up");
+            alert.showAndWait();
+        }
+        else if(userTxt.getText().length() < 4)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Username must be atleast 4 characters long");
+            alert.showAndWait();
+        }
+        else if(!isValid(emailTxt.toString()))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Email address is not valid!");
+            alert.showAndWait();
+        }
+        else if(passwordTxt.getText().length() < 6)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Password must be atleast 6 characters long");
+            alert.showAndWait();
+        }
+        else
+        {
+
+
+            String query1 = "Insert into managers values ('"+userTxt.getText()+"','"+emailTxt.getText()+"','"+passwordTxt.getText()+"')";
+            try
+            {
+
+                PreparedStatement st = DBConnection.setConnection().prepareStatement("select * from managers where username = ?");
+                st.setString(1, userTxt.getText());
+                ResultSet r1=st.executeQuery();
+                if(r1.next())
+                {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Username Already exists");
+                    alert.showAndWait();
+
+                }
+                else
+                {
+                    Statement statement = DBConnection.setConnection().createStatement();
+                    statement.executeUpdate(query1);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("You signed up!NOW LOG IN");
+                    alert.showAndWait();
+                }
+            }
+            catch(SQLException ex)
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Database problem!");
+                alert.setHeaderText(null);
+                alert.setContentText(ex.getMessage());
+                alert.showAndWait();
+                System.exit(0);
+            }
+        }
+
+
+    }
+
+
 }

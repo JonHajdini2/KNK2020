@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -90,7 +91,7 @@ public class Main extends Application {
 
 
 
-
+        btnLogin.setOnAction(e-> loginUser());
 
 
         gridPane.add(usernameIconIV, 0, 0);
@@ -128,8 +129,67 @@ public class Main extends Application {
         Scene scene = new Scene(bp);
 
         scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+
+
+
+
+        SignUp signup = new SignUp();
+
+        Scene scene2 = new Scene(signup);
+
+
+        signup.btnLogIn.setOnAction(e->{
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Login");
+            primaryStage.setResizable(false);
+        });
+
+        scene2.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+        btnRegister.setOnMouseClicked(e->{
+            primaryStage.setScene(scene2);
+            primaryStage.setTitle("Sign up");
+            primaryStage.setResizable(false);
+            signup.emailTxt.setText("");
+            signup.passwordTxt.setText("");
+            signup.userTxt.setText("");
+        });
+
+
+
+
+
+
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Login");
+        primaryStage.setResizable(false);
+
+
+        primaryStage.show();
+        gridPane.requestFocus();
+
     }
 
-}
+    private void loginUser()
+    {
+
+        if(userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill up");
+            alert.showAndWait();
+        }
+        else
+            {
+
+                String query = "Select * from managers where username = ? AND upassword = ?";
+
+            }
+
+        }
+
+    }
 
 
