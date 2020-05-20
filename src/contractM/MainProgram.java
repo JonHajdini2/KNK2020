@@ -1,6 +1,6 @@
 package contractM;
 
-public class showLogin
+public class MainProgram
 {
     public static void createMainStage() {
 

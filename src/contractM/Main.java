@@ -19,6 +19,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class Main extends Application {
 
@@ -183,13 +187,45 @@ public class Main extends Application {
         }
         else
             {
-
                 String query = "Select * from managers where username = ? AND upassword = ?";
+                try {
+
+                    PreparedStatement preparedStatement = DBConnection.setConnection().prepareStatement(query);
+
+                    preparedStatement.setString(1, userTxt.getText());
+                    preparedStatement.setString(2, passwordTxt.getText());
+
+                    ResultSet result = preparedStatement.executeQuery();
+
+                    if(result.next()) {
+
+
+                        mainStage.hide();
+                        MainProgram.createMainStage();
+
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Login result");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Email or password is wrong!");
+                        alert.showAndWait();
+
+                    }
+
+                } catch(SQLException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Database problem2");
+                    alert.setHeaderText(null);
+                    alert.setContentText(ex.getMessage());
+                    alert.showAndWait();
+                    ex.printStackTrace();
+                    System.exit(0);
+                }
 
             }
 
-        }
-
     }
 
+
+}
 
