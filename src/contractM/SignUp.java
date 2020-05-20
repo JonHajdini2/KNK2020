@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUp extends BorderPane
@@ -113,17 +114,14 @@ public class SignUp extends BorderPane
 
     }
 
-    private boolean isValid(String email)
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validate(String emailStr)
     {
-
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";
-
-        Pattern pat = Pattern.compile(emailRegex);
-        if (email == null)
-            return false;
-        return pat.matcher(email).matches();
-
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
     }
+
 
 
     private void SignUpUser()
@@ -144,7 +142,7 @@ public class SignUp extends BorderPane
             alert.setContentText("Username must be atleast 4 characters long");
             alert.showAndWait();
         }
-        else if(!isValid(emailTxt.toString()))
+        else if(!validate(emailTxt.getText()))
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
