@@ -2,22 +2,20 @@ package contractM;
 
 
 import javafx.application.Application;
-
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-
-
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 
@@ -93,6 +91,43 @@ public class Main extends Application {
 
 
 
+
+
+        gridPane.add(usernameIconIV, 0, 0);
+        gridPane.add(userTxt, 1, 0);
+        gridPane.add(usernameIconIV2, 0, 1);
+        gridPane.add(passwordTxt, 1, 1);
+        gridPane.add(hb2, 1, 2);
+
+
+
+        gridPane.setStyle("-fx-background-color: #53788D  ;\r\n" +
+                " -fx-padding: 20 10 10 10;\r\n" +
+                " -fx-background-radius: 20;");
+
+
+
+        Text text = new Text("Login");
+        text.setTextAlignment(TextAlignment.CENTER);
+
+        text.setStyle("-fx-font-family: Pacifico;-fx-font-size:30");
+        text.setFill(Color.rgb(196, 206, 212));
+
+
+        hb.getChildren().add(text);
+
+        hb.setAlignment(Pos.CENTER);
+
+        bp.setStyle("-fx-background-color:#2B4857;");
+        bp.setTop(hb);
+        bp.setCenter(gridPane);
+
+
+
+
+        Scene scene = new Scene(bp);
+
+        scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
     }
 
 }
