@@ -31,7 +31,8 @@ public class SignUp extends BorderPane
     Button btnLogIn = new Button(" Login ");
     GridPane gridPaneSU = new GridPane();
 
-    public SignUp() {
+    public SignUp()
+    {
         emailTxt.setPromptText("Email");
         passwordTxt.setPromptText("Password");
         userTxt.setPromptText("Username");
@@ -105,7 +106,8 @@ public class SignUp extends BorderPane
         this.setStyle("-fx-background-color:#2B4857;");
         this.setTop(hbSignUp);
         this.setCenter(gridPaneSU);
-        btnSignUp.setOnAction(e->{
+        btnSignUp.setOnAction(e->
+        {
             SignUpUser();
             emailTxt.setText("");
             passwordTxt.setText("");

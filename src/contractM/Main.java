@@ -24,7 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class Main extends Application {
+public class Main extends Application
+{
 
 
     private TextField emailTxt = new TextField();
@@ -39,7 +40,8 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage)
+    {
 
         mainStage = primaryStage;
 
@@ -142,14 +144,16 @@ public class Main extends Application {
         Scene scene2 = new Scene(signup);
 
 
-        signup.btnLogIn.setOnAction(e->{
+        signup.btnLogIn.setOnAction(e->
+        {
             primaryStage.setScene(scene);
             primaryStage.setTitle("Login");
             primaryStage.setResizable(false);
         });
 
         scene2.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
-        btnRegister.setOnMouseClicked(e->{
+        btnRegister.setOnMouseClicked(e->
+        {
             primaryStage.setScene(scene2);
             primaryStage.setTitle("Sign up");
             primaryStage.setResizable(false);
@@ -158,16 +162,9 @@ public class Main extends Application {
             signup.userTxt.setText("");
         });
 
-
-
-
-
-
-
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login");
         primaryStage.setResizable(false);
-
 
         primaryStage.show();
         gridPane.requestFocus();
@@ -188,7 +185,8 @@ public class Main extends Application {
         else
             {
                 String query = "Select * from managers where username = ? AND upassword = ?";
-                try {
+                try
+                {
 
                     PreparedStatement preparedStatement = DBConnection.setConnection().prepareStatement(query);
 
@@ -197,22 +195,27 @@ public class Main extends Application {
 
                     ResultSet result = preparedStatement.executeQuery();
 
-                    if(result.next()) {
+                    if(result.next())
+                    {
 
 
                         mainStage.hide();
                         MainProgram.createMainStage();
 
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Login result");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Email or password is wrong!");
-                        alert.showAndWait();
-
                     }
+                    else
+                        {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Login result");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Email or password is wrong!");
+                            alert.showAndWait();
 
-                } catch(SQLException ex) {
+                        }
+
+                }
+                catch(SQLException ex)
+                {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Database problem2");
                     alert.setHeaderText(null);
