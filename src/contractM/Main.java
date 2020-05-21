@@ -35,7 +35,8 @@ public class Main extends Application
 
     private Stage mainStage;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(args);
     }
 
@@ -50,15 +51,15 @@ public class Main extends Application
         userTxt.setPromptText("Username");
 
         BorderPane bp = new BorderPane();
-        bp.setPadding(new Insets(10,50,50,50));
+        bp.setPadding(new Insets(20, 100, 100, 100));
 
 
         HBox hb = new HBox();
-        hb.setPadding(new Insets(20,20,2,30));
+        hb.setPadding(new Insets(20, 20, 2, 30));
 
 
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(20,20,20,20));
+        gridPane.setPadding(new Insets(20, 20, 20, 20));
         gridPane.setHgap(5);
         gridPane.setVgap(5);
 
@@ -77,27 +78,25 @@ public class Main extends Application
         usernameIconIV3.setFitWidth(20);
         usernameIconIV3.setFitHeight(20);
 
-        HBox hb2=new HBox();
-        hb2.setPadding(new Insets(5,20,0,5));
+        HBox hb2 = new HBox();
+        hb2.setPadding(new Insets(5, 20, 0, 5));
         Button btnLogin = new Button("Login");
         btnLogin.setTextFill(Color.rgb(186, 201, 209));
         btnLogin.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
-                "    -fx-padding: 3px 10px 3px 10px;\r\n" +
-                "    -fx-background-color: #2C3E48");
+         "    -fx-padding: 3px 10px 3px 10px;\r\n" +
+         "    -fx-background-color: #2C3E48");
         Button btnRegister = new Button("Register");
         btnRegister.setTextFill(Color.rgb(186, 201, 209));
         btnRegister.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
-                "    -fx-padding: 3px 10px 3px 10px;\r\n" +
-                "    -fx-background-color: #2C3E48");
+         "    -fx-padding: 3px 10px 3px 10px;\r\n" +
+         "    -fx-background-color: #2C3E48");
 
 
-        hb2.getChildren().addAll(btnLogin,btnRegister);
+        hb2.getChildren().addAll(btnLogin, btnRegister);
         hb2.setSpacing(5);
 
 
-
-
-        btnLogin.setOnAction(e-> loginUser());
+        btnLogin.setOnAction(e -> loginUser());
 
 
         gridPane.add(usernameIconIV, 0, 0);
@@ -107,11 +106,9 @@ public class Main extends Application
         gridPane.add(hb2, 1, 2);
 
 
-
         gridPane.setStyle("-fx-background-color: #53788D  ;\r\n" +
-                " -fx-padding: 20 10 10 10;\r\n" +
-                " -fx-background-radius: 20;");
-
+         " -fx-padding: 20 10 10 10;\r\n" +
+         " -fx-background-radius: 20;");
 
 
         Text text = new Text("Login");
@@ -130,13 +127,9 @@ public class Main extends Application
         bp.setCenter(gridPane);
 
 
-
-
         Scene scene = new Scene(bp);
 
         scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
-
-
 
 
         SignUp signup = new SignUp();
@@ -144,7 +137,7 @@ public class Main extends Application
         Scene scene2 = new Scene(signup);
 
 
-        signup.btnLogIn.setOnAction(e->
+        signup.btnLogIn.setOnAction(e ->
         {
             primaryStage.setScene(scene);
             primaryStage.setTitle("Login");
@@ -152,7 +145,7 @@ public class Main extends Application
         });
 
         scene2.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
-        btnRegister.setOnMouseClicked(e->
+        btnRegister.setOnMouseClicked(e ->
         {
             primaryStage.setScene(scene2);
             primaryStage.setTitle("Sign up");
@@ -174,7 +167,7 @@ public class Main extends Application
     private void loginUser()
     {
 
-        if(userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
+        if (userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -183,49 +176,49 @@ public class Main extends Application
             alert.showAndWait();
         }
         else
+        {
+            String query = "Select * from managers where username = ? AND upassword = ?";
+            try
             {
-                String query = "Select * from managers where username = ? AND upassword = ?";
-                try
+
+                PreparedStatement preparedStatement = DBConnection.setConnection().prepareStatement(query);
+
+                preparedStatement.setString(1, userTxt.getText());
+                preparedStatement.setString(2, passwordTxt.getText());
+
+                ResultSet result = preparedStatement.executeQuery();
+
+                if (result.next())
                 {
 
-                    PreparedStatement preparedStatement = DBConnection.setConnection().prepareStatement(query);
 
-                    preparedStatement.setString(1, userTxt.getText());
-                    preparedStatement.setString(2, passwordTxt.getText());
-
-                    ResultSet result = preparedStatement.executeQuery();
-
-                    if(result.next())
-                    {
-
-
-                        mainStage.hide();
-                        MainProgram.createMainStage();
-
-                    }
-                    else
-                        {
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Login result");
-                            alert.setHeaderText(null);
-                            alert.setContentText("Email or password is wrong!");
-                            alert.showAndWait();
-
-                        }
+                    mainStage.hide();
+                    MainProgram.createMainStage();
 
                 }
-                catch(SQLException ex)
+                else
                 {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Database problem2");
+                    alert.setTitle("Login result");
                     alert.setHeaderText(null);
-                    alert.setContentText(ex.getMessage());
+                    alert.setContentText("Email or password is wrong!");
                     alert.showAndWait();
-                    ex.printStackTrace();
-                    System.exit(0);
+
                 }
 
             }
+            catch (SQLException ex)
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Database problem2");
+                alert.setHeaderText(null);
+                alert.setContentText(ex.getMessage());
+                alert.showAndWait();
+                ex.printStackTrace();
+                System.exit(0);
+            }
+
+        }
 
     }
 

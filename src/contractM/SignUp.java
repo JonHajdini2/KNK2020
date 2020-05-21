@@ -62,32 +62,32 @@ public class SignUp extends BorderPane
 
         btnSignUp.setTextFill(Color.rgb(186, 201, 209));
         btnSignUp.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
-                "    -fx-padding: 3px 10px 3px 10px;\r\n" +
-                "    -fx-background-color: #2C3E48");
+         "    -fx-padding: 3px 10px 3px 10px;\r\n" +
+         "    -fx-background-color: #2C3E48");
 
 
         btnLogIn.setTextFill(Color.rgb(186, 201, 209));
         btnLogIn.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
-                "    -fx-padding: 3px 10px 3px 10px;\r\n" +
-                "    -fx-background-color: #2C3E48");
+         "    -fx-padding: 3px 10px 3px 10px;\r\n" +
+         "    -fx-background-color: #2C3E48");
 
         HBox hbSignUp = new HBox();
 
         hbSignUp.getChildren().add(textSignUp);
-        hbSignUp.setPadding(new Insets(20,20,2,30));
+        hbSignUp.setPadding(new Insets(20, 20, 2, 30));
         hbSignUp.setAlignment(Pos.CENTER);
 
 
-        this.setPadding(new Insets(10,50,50,50));
+        this.setPadding(new Insets(20, 100, 100, 100));
 
 
-        gridPaneSU.setPadding(new Insets(20,20,20,20));
+        gridPaneSU.setPadding(new Insets(20, 20, 20, 20));
         gridPaneSU.setHgap(5);
         gridPaneSU.setVgap(5);
 
-        HBox hbSignUp2= new HBox();
-        hbSignUp2.setPadding(new Insets(5,30,10,5));
-        hbSignUp2.getChildren().addAll(btnSignUp,btnLogIn);
+        HBox hbSignUp2 = new HBox();
+        hbSignUp2.setPadding(new Insets(5, 30, 10, 5));
+        hbSignUp2.getChildren().addAll(btnSignUp, btnLogIn);
         hbSignUp2.setSpacing(5);
 
 
@@ -95,18 +95,18 @@ public class SignUp extends BorderPane
         gridPaneSU.add(userTxt, 1, 0);
         gridPaneSU.add(usernameIconIV3, 0, 1);
         gridPaneSU.add(emailTxt, 1, 1);
-        gridPaneSU.add(usernameIconIV2,0, 2);
+        gridPaneSU.add(usernameIconIV2, 0, 2);
         gridPaneSU.add(passwordTxt, 1, 2);
         gridPaneSU.add(hbSignUp2, 1, 3);
 
         gridPaneSU.setStyle("-fx-background-color: #53788D  ;\r\n" +
-                " -fx-padding: 20 10 10 10;\r\n" +
-                " -fx-background-radius: 20;");
+         " -fx-padding: 20 10 10 10;\r\n" +
+         " -fx-background-radius: 20;");
 
         this.setStyle("-fx-background-color:#2B4857;");
         this.setTop(hbSignUp);
         this.setCenter(gridPaneSU);
-        btnSignUp.setOnAction(e->
+        btnSignUp.setOnAction(e ->
         {
             SignUpUser();
             emailTxt.setText("");
@@ -116,7 +116,8 @@ public class SignUp extends BorderPane
 
     }
 
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2," +
+     "6}$", Pattern.CASE_INSENSITIVE);
 
     public static boolean validate(String emailStr)
     {
@@ -125,10 +126,9 @@ public class SignUp extends BorderPane
     }
 
 
-
     private void SignUpUser()
     {
-        if(emailTxt.getText().isEmpty() || userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
+        if (emailTxt.getText().isEmpty() || userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -136,7 +136,7 @@ public class SignUp extends BorderPane
             alert.setContentText("Please fill up");
             alert.showAndWait();
         }
-        else if(userTxt.getText().length() < 4)
+        else if (userTxt.getText().length() < 4)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -144,7 +144,7 @@ public class SignUp extends BorderPane
             alert.setContentText("Username must be atleast 4 characters long");
             alert.showAndWait();
         }
-        else if(!validate(emailTxt.getText()))
+        else if (!validate(emailTxt.getText()))
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -152,7 +152,7 @@ public class SignUp extends BorderPane
             alert.setContentText("Email address is not valid!");
             alert.showAndWait();
         }
-        else if(passwordTxt.getText().length() < 6)
+        else if (passwordTxt.getText().length() < 6)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -164,14 +164,20 @@ public class SignUp extends BorderPane
         {
 
 
-            String query1 = "Insert into managers values ('"+userTxt.getText()+"','"+emailTxt.getText()+"','"+passwordTxt.getText()+"')";
+            String query1 =
+             "Insert into managers values ('" + userTxt.getText() + "','" + emailTxt.getText() + "','" + passwordTxt.getText() + "')";
             try
             {
 
-                PreparedStatement st = DBConnection.setConnection().prepareStatement("select * from managers where username = ?");
+                PreparedStatement st = DBConnection.setConnection().prepareStatement("select * from managers where " +
+                 "username = ?");
+                PreparedStatement ps = DBConnection.setConnection().prepareStatement("select * from managers where " +
+                 "uemail = ?");
                 st.setString(1, userTxt.getText());
-                ResultSet r1=st.executeQuery();
-                if(r1.next())
+                ps.setString(1, emailTxt.getText());
+                ResultSet r1 = st.executeQuery();
+                ResultSet r2 = ps.executeQuery();
+                if (r1.next())
                 {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -179,6 +185,14 @@ public class SignUp extends BorderPane
                     alert.setContentText("Username Already exists");
                     alert.showAndWait();
 
+                }
+                else if (r2.next())
+                {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Email address Already exists");
+                    alert.showAndWait();
                 }
                 else
                 {
@@ -190,11 +204,14 @@ public class SignUp extends BorderPane
                     alert.setContentText("You signed up!NOW LOG IN");
                     alert.showAndWait();
                 }
+
+
             }
-            catch(SQLException ex)
+
+            catch (SQLException ex)
             {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Database problem!");
+                alert.setTitle("Database problem2");
                 alert.setHeaderText(null);
                 alert.setContentText(ex.getMessage());
                 alert.showAndWait();
@@ -204,6 +221,5 @@ public class SignUp extends BorderPane
 
 
     }
-
 
 }
