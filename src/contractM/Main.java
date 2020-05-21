@@ -48,7 +48,7 @@ public class Main extends Application
 
         emailTxt.setPromptText("Email");
         passwordTxt.setPromptText("Password");
-        userTxt.setPromptText("Username");
+        userTxt.setPromptText("Email/Username");
 
         BorderPane bp = new BorderPane();
         bp.setPadding(new Insets(20, 100, 100, 100));
@@ -132,6 +132,9 @@ public class Main extends Application
         scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
 
 
+        /////////////////////////SIGN UP/////////////////
+
+
         SignUp signup = new SignUp();
 
         Scene scene2 = new Scene(signup);
@@ -155,14 +158,23 @@ public class Main extends Application
             signup.userTxt.setText("");
         });
 
+
+        //////////////////////////////////////////////////////////////////////
+
+
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login");
         primaryStage.setResizable(false);
+
 
         primaryStage.show();
         gridPane.requestFocus();
 
     }
+
+
+    ///////////DataBase///////////////////////////////////////////////
+
 
     private void loginUser()
     {
@@ -178,6 +190,7 @@ public class Main extends Application
         else
         {
             String query = "Select * from managers where username = ? AND upassword = ?";
+            String Equery = "Select * from managers where uemail = ? AND upassword = ?";
             try
             {
 
@@ -188,10 +201,15 @@ public class Main extends Application
 
                 ResultSet result = preparedStatement.executeQuery();
 
-                if (result.next())
+                PreparedStatement preparedEStatement = DBConnection.setConnection().prepareStatement(Equery);
+
+                preparedEStatement.setString(1, userTxt.getText());
+                preparedEStatement.setString(2, passwordTxt.getText());
+
+                ResultSet Eresult = preparedEStatement.executeQuery();
+
+                if (result.next() || Eresult.next())
                 {
-
-
                     mainStage.hide();
                     MainProgram.createMainStage();
 
@@ -201,7 +219,7 @@ public class Main extends Application
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Login result");
                     alert.setHeaderText(null);
-                    alert.setContentText("Email or password is wrong!");
+                    alert.setContentText("Email/Username or password is wrong!");
                     alert.showAndWait();
 
                 }
@@ -224,4 +242,5 @@ public class Main extends Application
 
 
 }
+
 
