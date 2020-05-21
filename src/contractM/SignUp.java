@@ -116,15 +116,31 @@ public class SignUp extends BorderPane
 
     }
 
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2," +
-     "6}$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+     Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-    public static boolean validate(String emailStr)
+
+    private static final Pattern USER_NAME = Pattern.compile("^([A-Z])+([\\w]{3,})+$", Pattern.CASE_INSENSITIVE);
+
+    private static final Pattern USER_PASSWORD = Pattern.compile("^(?=.*[0-9]).{6,15}$");
+
+    private static boolean validateE(String emailStr)
     {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
     }
 
+    private static boolean validateUN(String usernameStr)
+    {
+        Matcher matcher = USER_NAME.matcher(usernameStr);
+        return matcher.find();
+    }
+
+    private static boolean validatePSW(String passStr)
+    {
+        Matcher matcher = USER_PASSWORD.matcher(passStr);
+        return matcher.find();
+    }
 
     private void SignUpUser()
     {
@@ -136,28 +152,29 @@ public class SignUp extends BorderPane
             alert.setContentText("Please fill up");
             alert.showAndWait();
         }
-        else if (userTxt.getText().length() < 4)
+        else if (!validateUN(userTxt.getText()))
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Username must be atleast 4 characters long");
+            alert.setContentText("Username is not valid!\nPlease try again");
             alert.showAndWait();
         }
-        else if (!validate(emailTxt.getText()))
+        else if (!validateE(emailTxt.getText()))
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Email address is not valid!");
+            alert.setContentText("Email address is not valid!\nPlease try again");
             alert.showAndWait();
         }
-        else if (passwordTxt.getText().length() < 6)
+        else if (!validatePSW(passwordTxt.getText()))
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Password must be atleast 6 characters long");
+            alert.setContentText("Password is not valid!\nMake sure it contains atleast one number!" +
+             "\nMake sure it is atleast 6 characters long!\nPlease try again");
             alert.showAndWait();
         }
         else
