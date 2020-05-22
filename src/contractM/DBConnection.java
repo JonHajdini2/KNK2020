@@ -19,7 +19,8 @@ public class DBConnection
         {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
-            dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/MenaxhimiDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root",""/*"password"*/);
+            dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/MenaxhimiDB?useUnicode=true" +
+             "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","password");
 
 
         }
