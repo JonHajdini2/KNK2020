@@ -67,8 +67,6 @@ public class Welcome extends BorderPane
         this.setBottom(root);
 
         this.setStyle("-fx-background-color:  #53788D");
-        btn3.setStyle("    -fx-padding: 3px 10px 3px 10px;\r\n" +
-         "    -fx-background-color: #2C3E48");
-        btn3.setTextFill(Color.rgb(186, 201, 209));
+        btn3.setStyle("    -fx-background-color: transparent");
     }
 }
