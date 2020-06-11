@@ -24,7 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class Main extends Application
+public class Login extends Application
 {
 
 
@@ -84,7 +84,7 @@ public class Main extends Application
         btnLogin.setTextFill(Color.rgb(186, 201, 209));
         btnLogin.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 10px 3px 10px;\r\n" +
-         "    -fx-background-color: #2C3E48");
+         "    -fx-background-color: # 2C3E48");
         Button btnRegister = new Button("Register");
         btnRegister.setTextFill(Color.rgb(186, 201, 209));
         btnRegister.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
