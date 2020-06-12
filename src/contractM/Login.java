@@ -46,7 +46,8 @@ public class Login extends Application
 
         emailTxt.setPromptText("Email");
         passwordTxt.setPromptText("Password");
-        userTxt.setPromptText(I18N.get("user"));
+        userTxt.setPromptText(I18N.getLabel("user").getText());
+
 
         BorderPane bp = new BorderPane();
         // bp.setPadding(new Insets(20, 100, 100, 100));
@@ -54,13 +55,8 @@ public class Login extends Application
         HBox languageHBox = new HBox();
         ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
 
-
-        GridPane TopGrid = new GridPane();
-        TopGrid.setPadding(new Insets(20,5,5,100));
-
-        HBox hb = new HBox();
-        hb.setPadding(new Insets(100, 20, 2, 30)); /****/
-
+        HBox hbLogin = new HBox();
+        //hbLogin.setPadding(new Insets(100, 20, 2, 30));
 
         GridPane mainGrid = new GridPane();
         mainGrid.setPadding(new Insets(5, 100, 100, 100));
@@ -69,6 +65,7 @@ public class Login extends Application
         gridPane.setPadding(new Insets(20, 20, 20, 20));
         gridPane.setHgap(5);
         gridPane.setVgap(5);
+
 
         Image usernameIcon = new Image("file:Images/icon.png");
         ImageView usernameIconIV = new ImageView(usernameIcon);
@@ -87,15 +84,15 @@ public class Login extends Application
 
         HBox hb2 = new HBox();
         hb2.setPadding(new Insets(5, 20, 0, 5)); ////
-        Button btnLogin = new Button("Login");
+        Button btnLogin = I18N.buttonForKey("Login");
         btnLogin.setTextFill(Color.rgb(186, 201, 209));
         btnLogin.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
-         "    -fx-padding: 3px 10px 3px 10px;\r\n" +
+         "    -fx-padding: 3px 15px 3px 15px;\r\n" +
          "    -fx-background-color: #2C3E48");
-        Button btnRegister = new Button("Register");
+        Button btnRegister = I18N.buttonForKey("Register");
         btnRegister.setTextFill(Color.rgb(186, 201, 209));
         btnRegister.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
-         "    -fx-padding: 3px 10px 3px 10px;\r\n" +
+         "    -fx-padding: 3px 15px 3px 15px;\r\n" +
          "    -fx-background-color: #2C3E48");
 
 
@@ -105,13 +102,14 @@ public class Login extends Application
 
         btnLogin.setOnAction(e -> loginUser());
 
-        mainGrid.getChildren().add(gridPane);
+        mainGrid.add(hbLogin, 0, 0);
+        mainGrid.add(gridPane, 0, 1);
 
-        gridPane.add(usernameIconIV, 0, 0);
-        gridPane.add(userTxt, 1, 0);
-        gridPane.add(usernameIconIV2, 0, 1);
-        gridPane.add(passwordTxt, 1, 1);
-        gridPane.add(hb2, 1, 2);
+        gridPane.add(usernameIconIV, 0, 1);
+        gridPane.add(userTxt, 1, 1);
+        gridPane.add(usernameIconIV2, 0, 2);
+        gridPane.add(passwordTxt, 1, 2);
+        gridPane.add(hb2, 1, 3);
 
 
         gridPane.setStyle("-fx-background-color: #53788D  ;\r\n" +
@@ -126,49 +124,62 @@ public class Login extends Application
         text.setFill(Color.rgb(196, 206, 212));
 
 
-        TopGrid.add(hb, 5, 5);
-        TopGrid.add(languageHBox, 10, 0);
+        hbLogin.getChildren().add(text);
 
-        hb.getChildren().add(text);
-
-        hb.setAlignment(Pos.CENTER);
+        hbLogin.setAlignment(Pos.CENTER);
 
         HBox hBoxError = new HBox(); /*****/
 
         errorLabel.setTextFill(Color.RED);
-        bp.setStyle("-fx-background-color:#2B4857;");
-        bp.setTop(TopGrid);
-        bp.setCenter(mainGrid);
-        bp.setBottom(hBoxError); /*****/
+
 
         hBoxError.getChildren().add(errorLabel); /*****/
         hBoxError.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px; -fx-alignment: center-right;"); /*****/
 
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
-        languageHBox.setStyle("-fx-padding: 20px; -fx-spacing: 4px;");
+        languageHBox.setStyle("-fx-padding: 20px 20px 50px 20px; -fx-spacing: 4px;");
         languageHBox.setAlignment(Pos.BASELINE_RIGHT);
         languageCB.setValue("EN");
         languageCB.setOnAction(e ->
         {
             I18N.setLocale(new Locale(languageCB.getValue().toLowerCase()));
+            errorLabel.setText("");
+            userTxt.setPromptText(I18N.getLabel("user").getText());
+            emailTxt.setPromptText(I18N.getLabel("Email").getText());
+            passwordTxt.setPromptText(I18N.getLabel("Password").getText());
 
         });
+
+
+
+
         languageCB.setStyle("-fx-border-width: 1px; -fx-border-style: solid; -fx-border-color: #000000; " +
          "-fx-background-color: #00000000;");
 
 
+        bp.setStyle("-fx-background-color:#2B4857;");
+        //bp.setTop(hbLogin);
+        bp.setCenter(mainGrid);
+        bp.setBottom(hBoxError); /*****/
+
+
+
+        /*--Add Language -- */
+        var lang = new BorderPane();
+        lang.setTop(languageHBox);
+        bp.setTop(lang);
+        //bp.setLeft(languageHBox);
+
         Scene scene = new Scene(bp);
 
-        //scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+        scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
 
 
         /////////////////////////SIGN UP/////////////////
 
-
         SignUp signup = new SignUp();
 
         Scene scene2 = new Scene(signup);
-
 
         signup.btnLogIn.setOnAction(e ->
         {
@@ -188,9 +199,7 @@ public class Login extends Application
             signup.userTxt.setText("");
         });
 
-
         //////////////////////////////////////////////////////////////////////
-
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login");
@@ -199,19 +208,16 @@ public class Login extends Application
 
         primaryStage.show();
         gridPane.requestFocus();
-
     }
 
-
     ///////////DataBase///////////////////////////////////////////////
-
 
     private void loginUser()
     {
 
         if (userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
-            errorLabel.setText("Please fill up");
+            errorLabel.setText(I18N.getLabel("Fill").getText());
         }
         else
         {
@@ -242,7 +248,7 @@ public class Login extends Application
                 }
                 else
                 {
-                    errorLabel.setText("Email/Username or password is wrong!");
+                    errorLabel.setText(I18N.getLabel("email").getText());
                 }
 
             }
