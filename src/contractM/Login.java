@@ -2,6 +2,7 @@ package contractM;
 
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 
 
 public class Login extends Application
@@ -26,7 +28,8 @@ public class Login extends Application
     private TextField emailTxt = new TextField();
     private PasswordField passwordTxt = new PasswordField();
     private TextField userTxt = new TextField();
-    private Label errorLabel = new Label(); /*****/
+    private Label errorLabel = new Label();
+    /*****/
 
     private Stage mainStage;
 
@@ -43,16 +46,24 @@ public class Login extends Application
 
         emailTxt.setPromptText("Email");
         passwordTxt.setPromptText("Password");
-        userTxt.setPromptText("Email/Username");
+        userTxt.setPromptText(I18N.get("user"));
 
         BorderPane bp = new BorderPane();
         // bp.setPadding(new Insets(20, 100, 100, 100));
 
+        HBox languageHBox = new HBox();
+        ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
+
+
+        GridPane TopGrid = new GridPane();
+        TopGrid.setPadding(new Insets(20,5,5,100));
+
         HBox hb = new HBox();
-        hb.setPadding(new Insets(50, 20, 2, 30)); /****/
+        hb.setPadding(new Insets(100, 20, 2, 30)); /****/
+
 
         GridPane mainGrid = new GridPane();
-        mainGrid.setPadding(new Insets(5,100,100,100));
+        mainGrid.setPadding(new Insets(5, 100, 100, 100));
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20, 20, 20, 20));
@@ -115,6 +126,9 @@ public class Login extends Application
         text.setFill(Color.rgb(196, 206, 212));
 
 
+        TopGrid.add(hb, 5, 5);
+        TopGrid.add(languageHBox, 10, 0);
+
         hb.getChildren().add(text);
 
         hb.setAlignment(Pos.CENTER);
@@ -123,16 +137,29 @@ public class Login extends Application
 
         errorLabel.setTextFill(Color.RED);
         bp.setStyle("-fx-background-color:#2B4857;");
-        bp.setTop(hb);
+        bp.setTop(TopGrid);
         bp.setCenter(mainGrid);
         bp.setBottom(hBoxError); /*****/
 
         hBoxError.getChildren().add(errorLabel); /*****/
         hBoxError.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px; -fx-alignment: center-right;"); /*****/
 
+        languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
+        languageHBox.setStyle("-fx-padding: 20px; -fx-spacing: 4px;");
+        languageHBox.setAlignment(Pos.BASELINE_RIGHT);
+        languageCB.setValue("EN");
+        languageCB.setOnAction(e ->
+        {
+            I18N.setLocale(new Locale(languageCB.getValue().toLowerCase()));
+
+        });
+        languageCB.setStyle("-fx-border-width: 1px; -fx-border-style: solid; -fx-border-color: #000000; " +
+         "-fx-background-color: #00000000;");
+
+
         Scene scene = new Scene(bp);
 
-        scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+        //scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
 
 
         /////////////////////////SIGN UP/////////////////
@@ -215,7 +242,7 @@ public class Login extends Application
                 }
                 else
                 {
-                   errorLabel.setText("Email/Username or password is wrong!");
+                    errorLabel.setText("Email/Username or password is wrong!");
                 }
 
             }
