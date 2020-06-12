@@ -1,9 +1,7 @@
 package contractM;
 
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sun.misc.SignalHandler;
 
 public class MainProgram
 {
@@ -18,7 +16,7 @@ public class MainProgram
         mainStage.setScene(scene);
         mainStage.show();
 
-        Main M = new Main();
+        Login M = new Login();
         we.logout.setOnAction(e ->
         {
             M.start(new Stage());  // log out
