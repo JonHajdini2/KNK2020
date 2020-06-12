@@ -2,10 +2,7 @@ package contractM;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -29,7 +26,7 @@ public class SignUp extends BorderPane
     public TextField userTxt = new TextField();
     Button btnSignUp = new Button("Sign Up");
     Button btnLogIn = new Button(" Login ");
-    GridPane gridPaneSU = new GridPane();
+    Label errorLabel = new Label(); /*****/
 
     public SignUp()
     {
@@ -78,9 +75,12 @@ public class SignUp extends BorderPane
         hbSignUp.setAlignment(Pos.CENTER);
 
 
-        this.setPadding(new Insets(20, 100, 100, 100));
+        //this.setPadding(new Insets(20, 100, 100, 100));
 
+        GridPane mainGrid = new GridPane();
+        mainGrid.setPadding(new Insets(5,100,100,100));
 
+        GridPane gridPaneSU = new GridPane();
         gridPaneSU.setPadding(new Insets(20, 20, 20, 20));
         gridPaneSU.setHgap(5);
         gridPaneSU.setVgap(5);
@@ -90,7 +90,7 @@ public class SignUp extends BorderPane
         hbSignUp2.getChildren().addAll(btnSignUp, btnLogIn);
         hbSignUp2.setSpacing(5);
 
-
+        mainGrid.getChildren().add(gridPaneSU);
         gridPaneSU.add(usernameIconIV, 0, 0);
         gridPaneSU.add(userTxt, 1, 0);
         gridPaneSU.add(usernameIconIV3, 0, 1);
@@ -103,16 +103,18 @@ public class SignUp extends BorderPane
          " -fx-padding: 20 10 10 10;\r\n" +
          " -fx-background-radius: 20;");
 
+        /* Treat Errors */
+        HBox hBoxError = new HBox();
+        errorLabel.setTextFill(Color.RED);
+        hBoxError.getChildren().add(errorLabel);
+        hBoxError.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px; -fx-alignment: center-right;");
+
+
         this.setStyle("-fx-background-color:#2B4857;");
         this.setTop(hbSignUp);
-        this.setCenter(gridPaneSU);
-        btnSignUp.setOnAction(e ->
-        {
-            SignUpUser();
-            emailTxt.setText("");
-            passwordTxt.setText("");
-            userTxt.setText("");
-        });
+        this.setCenter(mainGrid);
+        this.setBottom(hBoxError);
+        btnSignUp.setOnAction(e -> SignUpUser());
 
     }
 
@@ -146,36 +148,20 @@ public class SignUp extends BorderPane
     {
         if (emailTxt.getText().isEmpty() || userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill up");
-            alert.showAndWait();
+            errorLabel.setText("Please fill up");
         }
         else if (!validateUN(userTxt.getText()))
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Username is not valid!\nPlease try again");
-            alert.showAndWait();
+            errorLabel.setText("Username is not valid!");
+
         }
         else if (!validateE(emailTxt.getText()))
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Email address is not valid!\nPlease try again");
-            alert.showAndWait();
+            errorLabel.setText("Email address is not valid!");
         }
         else if (!validatePSW(passwordTxt.getText()))
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Password is not valid!\nMake sure it contains atleast one number!" +
-             "\nMake sure it is atleast 6 characters long!\nPlease try again");
-            alert.showAndWait();
+            errorLabel.setText("Password is not valid!");
         }
         else
         {
@@ -196,30 +182,21 @@ public class SignUp extends BorderPane
                 ResultSet r2 = ps.executeQuery();
                 if (r1.next())
                 {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Username Already exists");
-                    alert.showAndWait();
-
+                    errorLabel.setText("Username Already exists");
                 }
                 else if (r2.next())
                 {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Email address Already exists");
-                    alert.showAndWait();
+                    errorLabel.setText("Email address Already exists");
                 }
                 else
                 {
+                    errorLabel.setTextFill(Color.GREEN);
+                    errorLabel.setText("Your account is created! Procced to login...");
                     Statement statement = DBConnection.setConnection().createStatement();
                     statement.executeUpdate(query1);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success");
-                    alert.setHeaderText(null);
-                    alert.setContentText("You signed up!NOW LOG IN");
-                    alert.showAndWait();
+                    emailTxt.setText("");
+                    passwordTxt.setText("");
+                    userTxt.setText("");
                 }
 
 

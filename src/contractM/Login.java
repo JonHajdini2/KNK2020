@@ -5,10 +5,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -26,12 +23,10 @@ import java.sql.SQLException;
 
 public class Login extends Application
 {
-
-
     private TextField emailTxt = new TextField();
     private PasswordField passwordTxt = new PasswordField();
     private TextField userTxt = new TextField();
-
+    private Label errorLabel = new Label(); /*****/
 
     private Stage mainStage;
 
@@ -51,12 +46,13 @@ public class Login extends Application
         userTxt.setPromptText("Email/Username");
 
         BorderPane bp = new BorderPane();
-        bp.setPadding(new Insets(20, 100, 100, 100));
-
+        // bp.setPadding(new Insets(20, 100, 100, 100));
 
         HBox hb = new HBox();
-        hb.setPadding(new Insets(20, 20, 2, 30));
+        hb.setPadding(new Insets(50, 20, 2, 30)); /****/
 
+        GridPane mainGrid = new GridPane();
+        mainGrid.setPadding(new Insets(5,100,100,100));
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20, 20, 20, 20));
@@ -79,12 +75,12 @@ public class Login extends Application
         usernameIconIV3.setFitHeight(20);
 
         HBox hb2 = new HBox();
-        hb2.setPadding(new Insets(5, 20, 0, 5));
+        hb2.setPadding(new Insets(5, 20, 0, 5)); ////
         Button btnLogin = new Button("Login");
         btnLogin.setTextFill(Color.rgb(186, 201, 209));
         btnLogin.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 10px 3px 10px;\r\n" +
-         "    -fx-background-color: # 2C3E48");
+         "    -fx-background-color: #2C3E48");
         Button btnRegister = new Button("Register");
         btnRegister.setTextFill(Color.rgb(186, 201, 209));
         btnRegister.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
@@ -98,6 +94,7 @@ public class Login extends Application
 
         btnLogin.setOnAction(e -> loginUser());
 
+        mainGrid.getChildren().add(gridPane);
 
         gridPane.add(usernameIconIV, 0, 0);
         gridPane.add(userTxt, 1, 0);
@@ -122,10 +119,16 @@ public class Login extends Application
 
         hb.setAlignment(Pos.CENTER);
 
+        HBox hBoxError = new HBox(); /*****/
+
+        errorLabel.setTextFill(Color.RED);
         bp.setStyle("-fx-background-color:#2B4857;");
         bp.setTop(hb);
-        bp.setCenter(gridPane);
+        bp.setCenter(mainGrid);
+        bp.setBottom(hBoxError); /*****/
 
+        hBoxError.getChildren().add(errorLabel); /*****/
+        hBoxError.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px; -fx-alignment: center-right;"); /*****/
 
         Scene scene = new Scene(bp);
 
@@ -181,11 +184,7 @@ public class Login extends Application
 
         if (userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill up");
-            alert.showAndWait();
+            errorLabel.setText("Please fill up");
         }
         else
         {
@@ -216,12 +215,7 @@ public class Login extends Application
                 }
                 else
                 {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Login result");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Email/Username or password is wrong!");
-                    alert.showAndWait();
-
+                   errorLabel.setText("Email/Username or password is wrong!");
                 }
 
             }
