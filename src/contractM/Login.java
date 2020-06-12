@@ -1,6 +1,5 @@
 package contractM;
 
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -46,7 +45,7 @@ public class Login extends Application
 
         emailTxt.setPromptText("Email");
         passwordTxt.setPromptText("Password");
-        userTxt.setPromptText(I18N.getLabel("user").getText());
+        userTxt.setPromptText("Email/Username");
 
 
         BorderPane bp = new BorderPane();
@@ -151,8 +150,6 @@ public class Login extends Application
         });
 
 
-
-
         languageCB.setStyle("-fx-border-width: 1px; -fx-border-style: solid; -fx-border-color: #000000; " +
          "-fx-background-color: #00000000;");
 
@@ -197,6 +194,7 @@ public class Login extends Application
             signup.emailTxt.setText("");
             signup.passwordTxt.setText("");
             signup.userTxt.setText("");
+
         });
 
         //////////////////////////////////////////////////////////////////////
@@ -221,7 +219,8 @@ public class Login extends Application
         }
         else
         {
-            String query = "Select * from managers where username = ? AND upassword = ?";
+            String query =
+             "Select * from managers where username = ? AND upassword = ?";
             String Equery = "Select * from managers where uemail = ? AND upassword = ?";
             try
             {

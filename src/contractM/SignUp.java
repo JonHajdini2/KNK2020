@@ -1,5 +1,6 @@
 package contractM;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -16,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,15 +26,17 @@ public class SignUp extends BorderPane
     public TextField emailTxt = new TextField();
     public PasswordField passwordTxt = new PasswordField();
     public TextField userTxt = new TextField();
-    Button btnSignUp = new Button("Sign Up");
-    Button btnLogIn = new Button(" Login ");
-    Label errorLabel = new Label(); /*****/
+    Button btnSignUp = I18N.buttonForKey("Register");
+    Button btnLogIn = I18N.buttonForKey("Login");
+    Label errorLabel = new Label();
+
+    /*****/
 
     public SignUp()
     {
-        emailTxt.setPromptText("Email");
-        passwordTxt.setPromptText("Password");
-        userTxt.setPromptText("Username");
+        userTxt.setPromptText(I18N.getLabel("useronly").getText());
+        emailTxt.setPromptText(I18N.getLabel("Email").getText());
+        passwordTxt.setPromptText(I18N.getLabel("Password").getText());
 
 
         Image usernameIcon = new Image("file:Images/icon.png");
@@ -57,6 +61,10 @@ public class SignUp extends BorderPane
         textSignUp.setFill(Color.rgb(196, 206, 212));
 
 
+        HBox languageHBox = new HBox();
+        ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
+
+
         btnSignUp.setTextFill(Color.rgb(186, 201, 209));
         btnSignUp.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 10px 3px 10px;\r\n" +
@@ -71,14 +79,14 @@ public class SignUp extends BorderPane
         HBox hbSignUp = new HBox();
 
         hbSignUp.getChildren().add(textSignUp);
-        hbSignUp.setPadding(new Insets(20, 20, 2, 30));
+        // hbSignUp.setPadding(new Insets(20, 20, 2, 30));
         hbSignUp.setAlignment(Pos.CENTER);
 
 
         //this.setPadding(new Insets(20, 100, 100, 100));
 
         GridPane mainGrid = new GridPane();
-        mainGrid.setPadding(new Insets(5,100,100,100));
+        mainGrid.setPadding(new Insets(5, 100, 100, 100));
 
         GridPane gridPaneSU = new GridPane();
         gridPaneSU.setPadding(new Insets(20, 20, 20, 20));
@@ -90,7 +98,8 @@ public class SignUp extends BorderPane
         hbSignUp2.getChildren().addAll(btnSignUp, btnLogIn);
         hbSignUp2.setSpacing(5);
 
-        mainGrid.getChildren().add(gridPaneSU);
+        mainGrid.add(hbSignUp, 0, 0);
+        mainGrid.add(gridPaneSU, 0, 1);
         gridPaneSU.add(usernameIconIV, 0, 0);
         gridPaneSU.add(userTxt, 1, 0);
         gridPaneSU.add(usernameIconIV3, 0, 1);
@@ -107,11 +116,27 @@ public class SignUp extends BorderPane
         HBox hBoxError = new HBox();
         errorLabel.setTextFill(Color.RED);
         hBoxError.getChildren().add(errorLabel);
+
+
         hBoxError.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px; -fx-alignment: center-right;");
+        languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
+        languageHBox.setStyle("-fx-padding: 20px 20px 50px 20px; -fx-spacing: 4px;");
+        languageHBox.setAlignment(Pos.BASELINE_RIGHT);
+        languageCB.setValue("EN");
+        languageCB.setOnAction(e ->
+        {
+            I18N.setLocale(new Locale(languageCB.getValue().toLowerCase()));
+            errorLabel.setText("");
+            userTxt.setPromptText(I18N.getLabel("useronly").getText());
+            emailTxt.setPromptText(I18N.getLabel("Email").getText());
+            passwordTxt.setPromptText(I18N.getLabel("Password").getText());
+        });
+        languageCB.setStyle("-fx-border-width: 1px; -fx-border-style: solid; -fx-border-color: #000000; " +
+         "-fx-background-color: #00000000;");
 
 
         this.setStyle("-fx-background-color:#2B4857;");
-        this.setTop(hbSignUp);
+        this.setTop(languageHBox);
         this.setCenter(mainGrid);
         this.setBottom(hBoxError);
         btnSignUp.setOnAction(e -> SignUpUser());
@@ -148,24 +173,23 @@ public class SignUp extends BorderPane
     {
         if (emailTxt.getText().isEmpty() || userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
-            errorLabel.setText("Please fill up");
+            errorLabel.setText(I18N.getLabel("Fill").getText());
         }
         else if (!validateUN(userTxt.getText()))
         {
-            errorLabel.setText("Username is not valid!");
+            errorLabel.setText(I18N.getLabel("UnotValid").getText());
 
         }
         else if (!validateE(emailTxt.getText()))
         {
-            errorLabel.setText("Email address is not valid!");
+            errorLabel.setText(I18N.getLabel("EnotValid").getText());
         }
         else if (!validatePSW(passwordTxt.getText()))
         {
-            errorLabel.setText("Password is not valid!");
+            errorLabel.setText(I18N.getLabel("PnotValid").getText());
         }
         else
         {
-
 
             String query1 =
              "Insert into managers values ('" + userTxt.getText() + "','" + emailTxt.getText() + "','" + passwordTxt.getText() + "')";
@@ -182,26 +206,24 @@ public class SignUp extends BorderPane
                 ResultSet r2 = ps.executeQuery();
                 if (r1.next())
                 {
-                    errorLabel.setText("Username Already exists");
+                    errorLabel.setText(I18N.getLabel("Userexists").getText());
                 }
                 else if (r2.next())
                 {
-                    errorLabel.setText("Email address Already exists");
+                    errorLabel.setText(I18N.getLabel("Emailexists").getText());
                 }
                 else
                 {
                     errorLabel.setTextFill(Color.GREEN);
-                    errorLabel.setText("Your account is created! Procced to login...");
+                    errorLabel.setText(I18N.getLabel("UserCreated").getText());
+
                     Statement statement = DBConnection.setConnection().createStatement();
                     statement.executeUpdate(query1);
                     emailTxt.setText("");
                     passwordTxt.setText("");
                     userTxt.setText("");
                 }
-
-
             }
-
             catch (SQLException ex)
             {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
