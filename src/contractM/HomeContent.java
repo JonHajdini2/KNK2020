@@ -30,16 +30,25 @@ public class HomeContent extends GridPane
 
         Pane homePane = new Pane();
 
-        Text homeImageText = new Text(50, 100, "Contract Mangment");
-        Text homeImageDescription = new Text(50, 175, "Character on the trip\nDesign and Technology.");
+        Image usernameIcon = new Image("file:Images/welcome.png");
+        ImageView usernameIconIV = new ImageView(usernameIcon);
+        usernameIconIV.setFitWidth(500);
+        usernameIconIV.setFitHeight(200);
+        usernameIconIV.relocate(50,30);
+
+
+
+        //Text homeImageText = new Text(50, 175, "Contract Mangment");
+        Text homeImageDescription = I18N.getText("Welcometext");
+        homeImageDescription.relocate(50,175);
         Button homeImageButton = new Button("Info");
 
         this.setStyle("-fx-padding: 20px; -fx-vgap: 20px;");
 
-        homeImageText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 50));
-        homeImageText.setStyle("-fx-fill: linear-gradient(to bottom right, #003f3f, #00ffff);");
+        //homeImageText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 50));
+        //homeImageText.setStyle("-fx-fill: linear-gradient(to bottom right, #003f3f, #00ffff);");
         homeImageDescription.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
-        homeImageDescription.setStyle("-fx-fill: linear-gradient(to bottom right, #003f3f, #00ffff);");
+        homeImageDescription.setStyle("-fx-fill: linear-gradient(to bottom right, #003f3f, #048080);");
         homeImageButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #003f3f, #00ffff); " +
          "-fx-border-width: 1px; -fx-border-style: solid; -fx-border-color: black; -fx-cursor: hand;");
         homeImageButton.setOnMouseEntered(e ->
@@ -54,7 +63,8 @@ public class HomeContent extends GridPane
              "-fx-text-fill: black;");
         });
         homeImageButton.setOnAction(e->	Help.about());
-        homeImageButton.relocate(50, 250);
+        homeImageButton.relocate(50, 450);
+        homeImageDescription.relocate(50,300);
 
 
         hbox2.setPadding(new Insets(50, 50, 50, 50));
@@ -98,7 +108,8 @@ public class HomeContent extends GridPane
         hbox2.relocate(600,50);
 
 
-        homePane.getChildren().addAll(homeImageText, homeImageDescription, homeImageButton, hbox2);
+        homePane.getChildren().addAll(usernameIconIV, homeImageDescription, homeImageButton, hbox2);
+
         this.add(homePane, 0, 1, 4, 1);
     }
 

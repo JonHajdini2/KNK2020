@@ -7,28 +7,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Locale;
 
 public class MainScene extends Scene
 {
 
-    public Button settingsButton = new Button("Settings");
-    public Button logoutButton = new Button("Log Out");
+    public Button settingsButton = I18N.buttonForKey("Settings");
+    public Button logoutButton = I18N.buttonForKey("LogOut");
 
     public MainScene(Stage primaryStage)
     {
@@ -51,8 +42,8 @@ public class MainScene extends Scene
 
         HBox menu = new HBox();
         BorderPane centerBorderPane = new BorderPane();
-        Button[] menuButtons = new Button[]{I18N.buttonForKey("homeMenuButton"), I18N.buttonForKey("carsMenuButton"),
-         I18N.buttonForKey("rentMenuButton"), I18N.buttonForKey("historyMenuButton")};
+        Button[] menuButtons = new Button[]{I18N.buttonForKey("homeMenuButton"), I18N.buttonForKey("addMenuButton"),
+         I18N.buttonForKey("updateMenuButton"), I18N.buttonForKey("historyMenuButton")};
         BorderPane LogoutLabel = new BorderPane();
 
 
