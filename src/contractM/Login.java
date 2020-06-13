@@ -58,12 +58,12 @@ public class Login extends Application
         //hbLogin.setPadding(new Insets(100, 20, 2, 30));
 
         GridPane mainGrid = new GridPane();
-        mainGrid.setPadding(new Insets(5, 100, 100, 100));
+        mainGrid.setPadding(new Insets(5, 200, 200, 200));
 
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(20, 20, 20, 20));
-        gridPane.setHgap(5);
-        gridPane.setVgap(5);
+        //gridPane.setPadding(new Insets(40, 40, 40, 40));
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
 
 
         Image usernameIcon = new Image("file:Images/icon.png");
@@ -111,7 +111,7 @@ public class Login extends Application
         gridPane.add(hb2, 1, 3);
 
 
-        gridPane.setStyle("-fx-background-color: #53788D  ;\r\n" +
+        gridPane.setStyle("-fx-background-color: #ffffff  ;\r\n" +
          " -fx-padding: 20 10 10 10;\r\n" +
          " -fx-background-radius: 20;");
 
@@ -133,7 +133,7 @@ public class Login extends Application
 
 
         hBoxError.getChildren().add(errorLabel); /*****/
-        hBoxError.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px; -fx-alignment: center-right;"); /*****/
+        hBoxError.setStyle("-fx-background-color: rgba(239,235,235,0.37); -fx-padding: 20px; -fx-alignment: center-right;"); /*****/
 
 
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
@@ -156,7 +156,7 @@ public class Login extends Application
 
 
         //bp.setStyle("-fx-background-color:#2B4857;");
-        bp.setStyle("-fx-background-color: linear-gradient(to bottom right, #2b4857, #446397);");
+        bp.setStyle("-fx-background-color: linear-gradient(to bottom right, #03DAC6, #018786);");
         //bp.setTop(hbLogin);
         bp.setCenter(mainGrid);
         bp.setBottom(hBoxError); /*****/

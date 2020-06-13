@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -86,12 +87,12 @@ public class SignUp extends BorderPane
         //this.setPadding(new Insets(20, 100, 100, 100));
 
         GridPane mainGrid = new GridPane();
-        mainGrid.setPadding(new Insets(5, 100, 100, 100));
+        mainGrid.setPadding(new Insets(5, 200, 200, 200));
 
         GridPane gridPaneSU = new GridPane();
-        gridPaneSU.setPadding(new Insets(20, 20, 20, 20));
-        gridPaneSU.setHgap(5);
-        gridPaneSU.setVgap(5);
+        //gridPaneSU.setPadding(new Insets(20, 20, 20, 20));
+        gridPaneSU.setHgap(10);
+        gridPaneSU.setVgap(10);
 
         HBox hbSignUp2 = new HBox();
         hbSignUp2.setPadding(new Insets(5, 30, 10, 5));
@@ -108,17 +109,19 @@ public class SignUp extends BorderPane
         gridPaneSU.add(passwordTxt, 1, 2);
         gridPaneSU.add(hbSignUp2, 1, 3);
 
-        gridPaneSU.setStyle("-fx-background-color: #53788D  ;\r\n" +
+        gridPaneSU.setStyle("-fx-background-color: #ffffff  ;\r\n" +
          " -fx-padding: 20 10 10 10;\r\n" +
          " -fx-background-radius: 20;");
 
         /* Treat Errors */
         HBox hBoxError = new HBox();
+        //errorLabel.setTextFill(Color.RED);
         errorLabel.setTextFill(Color.RED);
+        errorLabel.setFont(new Font("Arial", 15));
         hBoxError.getChildren().add(errorLabel);
 
 
-        hBoxError.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px; -fx-alignment: center-right;");
+        hBoxError.setStyle("-fx-background-color: rgba(239,235,235,0.37); -fx-padding: 20px; -fx-alignment: center-right;");
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
         languageHBox.setStyle("-fx-padding: 20px 20px 50px 20px; -fx-spacing: 4px;");
         languageHBox.setAlignment(Pos.BASELINE_RIGHT);
@@ -134,7 +137,7 @@ public class SignUp extends BorderPane
         languageCB.setStyle("-fx-border-width: 1px; -fx-border-style: solid; -fx-border-color: #000000; " +
          "-fx-background-color: #00000000;");
 
-        this.setStyle("-fx-background-color: linear-gradient(to bottom right, #2b4857, #446397);");
+        this.setStyle("-fx-background-color: linear-gradient(to bottom right, #03DAC6, #018786);");
         //this.setStyle("-fx-background-color:#2B4857;");
         this.setTop(languageHBox);
         this.setCenter(mainGrid);

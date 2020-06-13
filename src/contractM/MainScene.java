@@ -65,8 +65,8 @@ public class MainScene extends Scene
         LogoutLabel.setRight(hBoxError);
         LogoutLabel.setLeft(settingsAndLogout);
         boolean[] menuStatus = new boolean[]{true, false, false, false};
-        borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #2b4857, #446397);");
-       // borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #00ffff, #003f3f);");
+        borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #03DAC6, #018786);");
+        // borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #00ffff, #003f3f);");
         // borderPane.setLeft(leftBorderPane);
         borderPane.setCenter(centerBorderPane);
         settingsButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
@@ -100,7 +100,7 @@ public class MainScene extends Scene
         settingsAndLogout.getChildren().addAll(settingsButton, logoutButton);
         settingsAndLogout.setStyle("-fx-spacing: 10px;");
         centerBorderPane.setTop(topBorderPane);
-        //centerBorderPane.setCenter(new HomeMenu(primaryStage, this));
+        centerBorderPane.setCenter(new HomeContent(primaryStage, this));
         centerBorderPane.setBottom(LogoutLabel);
         menuButtons[0].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
          "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
@@ -109,7 +109,7 @@ public class MainScene extends Scene
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         menuButtons[0].setOnAction(e ->
         {
-            //   centerBorderPane.setCenter(new HomeMenu(primaryStage, this));
+            centerBorderPane.setCenter(new HomeContent(primaryStage, this));
             menuStatus[0] = true;
             menuStatus[1] = false;
             menuStatus[2] = false;
@@ -210,7 +210,7 @@ public class MainScene extends Scene
         topBorderPane.setCenter(menu);
         topBorderPane.setRight(languageHBox);
         topBorderPane.setStyle("-fx-border-width: 0px 0px 1px 0px; -fx-border-style: none none solid none; " +
-         "-fx-border-color: #0000005f; -fx-padding: 20px;");
+         "-fx-border-color: black; -fx-padding: 20px; -fx-background-color: rgba(239,235,235,0.37);");
         menu.getChildren().addAll(menuButtons);
         menu.setStyle("-fx-spacing: 10px;");
         languageCB.setValue("EN");
@@ -226,7 +226,9 @@ public class MainScene extends Scene
         errorLabel.setTextFill(Color.RED);
         hBoxError.getChildren().add(errorLabel);
         hBoxError.setAlignment(Pos.BOTTOM_RIGHT);
-        LogoutLabel.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px;");
+        LogoutLabel.setStyle(
+         "-fx-border-width: 1px 0px 0px 0px; -fx-border-style: solid none none none; " +
+          "-fx-border-color: black; -fx-padding: 20px; -fx-background-color: rgba(239,235,235,0.37);");
 
         primaryStage.setOnCloseRequest(e ->
         {

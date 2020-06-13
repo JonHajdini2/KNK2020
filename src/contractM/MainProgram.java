@@ -15,29 +15,31 @@ public class MainProgram
     {
         Stage mainStage = new Stage();
 
-        Welcome we = new Welcome();
+        //Welcome we = new Welcome();
 
         MainScene mS = new MainScene(new Stage());
-        Scene scene = new Scene(we, 800, 600);
-        mainStage.setTitle("Welcome!");
-        mainStage.setScene(scene);
-        mainStage.show();
+        //Scene scene = new Scene(we, 800, 600);
+        //mainStage.setTitle("Welcome!");
+        //mainStage.setScene(scene);
+        //mainStage.show();
+        mainStage.setResizable(false);
 
         Login M = new Login();
 
-        we.logout.setOnAction(e ->
+        /*we.logout.setOnAction(e ->
         {
             M.start(new Stage());  // log out
             mainStage.hide();
-        });
+        });*/
 
 
-        we.btn3.setOnAction(e->
-        {
-            mainStage.hide();
+       // we.btn3.setOnAction(e->
+       // {
+            //mainStage.hide();
             mainStage.setScene(mS);
+            mainStage.setTitle("Payroll and Contract Management");
             mainStage.show();
-        });
+        //});
 
         mS.logoutButton.setOnAction(e->
         {
@@ -46,11 +48,11 @@ public class MainProgram
             mainStage.hide();
         });
 
-        we.logout.setOnMouseEntered(e->scene.setCursor(Cursor.HAND)); //Change cursor to hand);
-        we.logout.setOnMouseExited(e->scene.setCursor(Cursor.DEFAULT)); //Change cursor to default;
+       // we.logout.setOnMouseEntered(e->scene.setCursor(Cursor.HAND)); //Change cursor to hand);
+       // we.logout.setOnMouseExited(e->scene.setCursor(Cursor.DEFAULT)); //Change cursor to default;
 
-        we.btn3.setOnMouseEntered(e->scene.setCursor(Cursor.HAND)); //Change cursor to hand);
-        we.btn3.setOnMouseExited(e->scene.setCursor(Cursor.DEFAULT)); //Change cursor to default;
+      //  we.btn3.setOnMouseEntered(e->scene.setCursor(Cursor.HAND)); //Change cursor to hand);
+      //  we.btn3.setOnMouseExited(e->scene.setCursor(Cursor.DEFAULT)); //Change cursor to default;
     }
 
     public static void main(String[] args)
