@@ -53,6 +53,7 @@ public class HomeContent extends GridPane
              "-fx-border-width: 1px; -fx-border-style: solid; -fx-border-color: black; -fx-cursor: hand; " +
              "-fx-text-fill: black;");
         });
+        homeImageButton.setOnAction(e->	Help.about());
         homeImageButton.relocate(50, 250);
 
 

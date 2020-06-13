@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class Help {
 	
-	public void about() {
+	public static void about() {
 		Tab newtab = new Tab(); 
 		TabPane tbpane = new TabPane();
 		 
@@ -44,7 +44,7 @@ public class Help {
 	    
 	   tbpane.getTabs().add(newtab);
 
-		Scene sc = new Scene(tbpane, 500, 300);
+		Scene sc = new Scene(tbpane, 1000, 1000);
 
 		helpAboutStage.setTitle("Help - About");
 		helpAboutStage.setScene(sc);
