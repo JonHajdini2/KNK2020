@@ -84,6 +84,9 @@ public class Welcome extends BorderPane
         this.setBottom(logoutpane);
 
 
+
+
+
         this.setStyle("-fx-background-color:  #53788D");
         btn3.setStyle("-fx-background-color: transparent");
 

@@ -135,6 +135,7 @@ public class Login extends Application
         hBoxError.getChildren().add(errorLabel); /*****/
         hBoxError.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px; -fx-alignment: center-right;"); /*****/
 
+
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
         languageHBox.setStyle("-fx-padding: 20px 20px 50px 20px; -fx-spacing: 4px;");
         languageHBox.setAlignment(Pos.BASELINE_RIGHT);
@@ -154,7 +155,8 @@ public class Login extends Application
          "-fx-background-color: #00000000;");
 
 
-        bp.setStyle("-fx-background-color:#2B4857;");
+        //bp.setStyle("-fx-background-color:#2B4857;");
+        bp.setStyle("-fx-background-color: linear-gradient(to bottom right, #2b4857, #446397);");
         //bp.setTop(hbLogin);
         bp.setCenter(mainGrid);
         bp.setBottom(hBoxError); /*****/

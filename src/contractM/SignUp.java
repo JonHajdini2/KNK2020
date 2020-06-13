@@ -134,8 +134,8 @@ public class SignUp extends BorderPane
         languageCB.setStyle("-fx-border-width: 1px; -fx-border-style: solid; -fx-border-color: #000000; " +
          "-fx-background-color: #00000000;");
 
-
-        this.setStyle("-fx-background-color:#2B4857;");
+        this.setStyle("-fx-background-color: linear-gradient(to bottom right, #2b4857, #446397);");
+        //this.setStyle("-fx-background-color:#2B4857;");
         this.setTop(languageHBox);
         this.setCenter(mainGrid);
         this.setBottom(hBoxError);
