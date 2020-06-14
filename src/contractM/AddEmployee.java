@@ -4,30 +4,18 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.util.StringConverter;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class AddEmployee extends GridPane
 {
@@ -43,8 +31,6 @@ public class AddEmployee extends GridPane
     TextField empHours = new TextField();
     TextField empIdConBeg = new TextField();
     TextField empIdConEnd = new TextField();
-    // TextField empDep = new TextField();
-    // TextField empJob = new TextField();
     ComboBox<String> empDep = new ComboBox<>(FXCollections.observableArrayList(" Computer Engineer", " Electrical " +
       "Engineer",
      " Computer Scientist"));
@@ -59,13 +45,18 @@ public class AddEmployee extends GridPane
     Button ClearButton = I18N.buttonForKey("Clear");
 
 
-    //String oldstring = "2011-01-18 00:00:00.0";
+
     LocalDate datetimeBirth;
     LocalDate datetimeBegin;
     LocalDate datetimeEnd;
     String datebirthstring = "";
     String dateBeginstring = "";
     String dateEndstring = "";
+
+
+    ProgressIndicator progressIndicator = new ProgressIndicator();
+
+    static double ii = 0;
 
 
     public AddEmployee(MainScene ms)
@@ -87,11 +78,7 @@ public class AddEmployee extends GridPane
                 empJob.getItems().addAll(" Circ. Components", " Circuits");
         });
 
-        Text header = new Text("ckemi");
-        ComboBox<String> countryCB = new ComboBox<String>(FXCollections.observableArrayList("Albania", "Kosovo",
-         "Montenegro", "North Macedonia"));
-        ComboBox<String> cityCB = new ComboBox<String>(FXCollections.observableArrayList("Tirana", "Prishtina",
-         "Podgorica", "Skopje"));
+
         DatePicker Birth_DatePicker = new DatePicker();
         DatePicker Contract_Begin = new DatePicker(LocalDate.of(LocalDate.now().getYear(),
          LocalDate.now().getMonth(),
@@ -102,20 +89,16 @@ public class AddEmployee extends GridPane
          (LocalDate.now().getDayOfMonth() + 4 <= LocalDate.now().getMonth().length(LocalDate.now().isLeapYear())) ?
           (LocalDate.now().getDayOfMonth() + 4) :
           ((LocalDate.now().getDayOfMonth() + 4) % LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()))));
-        ComboBox<String> carCB = new ComboBox<>();
-        VBox carImageVBox = new VBox();
-        Text carName = new Text();
-        Image carImage = new Image("file:Images/welcome.png", 720, 480, true, true);
-        ImageView carImageView = new ImageView(carImage);
+
+        VBox employeeImageVBox = new VBox();
+     
+        Image employeeImage = new Image("file:Images/employers.png", 250, 250, true, true);
+        ImageView employeeImageView = new ImageView(employeeImage);
 
 
-        header.setFont(Font.font("Tahoma", FontWeight.NORMAL, 50));
-        countryCB.setValue("Albania");
-        cityCB.setValue("Tirana");
-        carCB.setValue("Audi Q5");
-        carName.setText(carCB.getValue());
-        carImageVBox.setStyle("-fx-background-color: #0000005f; -fx-padding: 20px;");
-        carImageVBox.getChildren().addAll(carName, carImageView);
+
+        employeeImageVBox.setStyle("-fx-background-color: transparent; -fx-padding: 20px;");
+        employeeImageVBox.getChildren().addAll(employeeImageView);
 
         ClearButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
          "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
@@ -142,62 +125,7 @@ public class AddEmployee extends GridPane
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
 
-
-
-
-        /*ClearButton.setOnAction(e -> {
-            try {
-                this.statement.executeUpdate("INSERT INTO rentHistory (uUsername, rOrderDate, rCar, rLocation,
-                rPick_upDate, rDrop_offDate) VALUES ('" + ms.getUsername() + "', '" + LocalDate.now().toString() +
-                "', '" + carCB.getValue() + "', '" + cityCB.getValue() + ", " + countryCB.getValue() + "', '" +
-                pick_upDatePicker.getValue() + "', '" + drop_offDatePicker.getValue() + "');");
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        });*/
-      /*  carCB.setOnAction(e -> {
-            carName.setText(carCB.getValue());
-            ResultSet rSet;
-            try {
-                rSet = this.statement.executeQuery("SELECT carImagePath FROM cars WHERE carManufacturer = '" + carCB
-                .getValue().split(" ")[0] + "' AND carModel = '" + carCB.getValue().split(" ")[1] + ((carCB.getValue
-                ().split(" ").length == 3)?(" " + carCB.getValue().split(" ")[2]):"") + "';");
-                rSet.next();
-                carImageView.setImage(new Image(rSet.getString("carImagePath"), 720, 480, true, true));
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        });*/
-        /*try {
-            ResultSet rSet = this.statement.executeQuery("SELECT carManufacturer, carModel FROM cars;");
-            while(rSet.next())
-                carCB.getItems().add(rSet.getString("carManufacturer") + ' ' + rSet.getString("carModel"));
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }*/
-
-        /*this.add(header, 0, 0, 3, 1);
-        this.add(I18N.getLabel("countryLabel"), 0, 1);
-        this.add(countryCB, 1, 1);
-        this.add(I18N.getLabel("countryLabel"), 0, 2);
-        this.add(cityCB, 1, 2);
-        this.add(I18N.getLabel("countryLabel"), 0, 3);
-        this.add(pick_upDatePicker, 1, 3);
-        this.add(I18N.getLabel("countryLabel"), 0, 4);
-        this.add(drop_offDatePicker, 1, 4);
-        this.add(I18N.getLabel("countryLabel"), 0, 5);
-        this.add(carCB, 1, 5);
-        this.add(carImageVBox, 2, 1, 1, 6);
-        this.add(ClearButtonHbox, 0, 6, 2, 1);
-        this.setStyle("-fx-padding: 20px; -fx-vgap: 20px; -fx-hgap: 20px;");*/
-
-
-        // GridPane this = new GridPane();
-
-        //this.setAlignment(Pos.CENTER);
-
-
-        this.setPadding(new Insets(100, 300, 0, 150));
+        this.setPadding(new Insets(100, 0, 0, 100));
         this.setHgap(40);
         this.setVgap(10);
         Label label = I18N.getLabel("Employee_Details");
@@ -282,14 +210,13 @@ public class AddEmployee extends GridPane
         empIdConEnd.setPromptText("DD/MM/YYYY");
 
 
-
-
-
-
         this.add(btAdd, 2, 10);
         GridPane.setHalignment(btAdd, HPos.RIGHT);
         this.add(ClearButton, 3, 10);
         GridPane.setHalignment(btAdd, HPos.RIGHT);
+
+        this.add(employeeImageVBox, 5, 2, 6, 7);
+        this.add(progressIndicator, 12, 11);
 
 
         ClearButton.setOnAction(e -> clear());
@@ -298,31 +225,26 @@ public class AddEmployee extends GridPane
          "    -fx-background-color: #2C3E48");
         btn3.setTextFill(Color.rgb(186, 201, 209));
 
-        /*this.setCenter(this);
-        this.setTop(btn3);
-        this.setStyle("-fx-background-color:  #53788D");
-
-        progressi pp = new progressi();
-        this.setBottom(pp);
-
-        RightPane rightpane = new RightPane();*/
-
         btAdd.setOnAction(e ->
         {
-            AddEmp();
-            datetimeBirth = LocalDate.parse(empBirth.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            datetimeBegin = LocalDate.parse(empIdConBeg.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            datetimeEnd = LocalDate.parse(empIdConEnd.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            datebirthstring = datetimeBirth.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            dateBeginstring = datetimeBegin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            dateEndstring = datetimeEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            boolean Fill = FillAll();
+            if (Fill)
+            {
 
+                datetimeBirth = LocalDate.parse(empBirth.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                datetimeBegin = LocalDate.parse(empIdConBeg.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                datetimeEnd = LocalDate.parse(empIdConEnd.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                datebirthstring = datetimeBirth.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                dateBeginstring = datetimeBegin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                dateEndstring = datetimeEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                AddEmp();
 
-           /* pp.ii += 0.1;
-            pp.pb.setProgress(pp.ii);
-            //clear();
-            rightpane.refresh_table(rightpane.EmployersTable);*/
-
+            }
+            else
+            {
+                MainScene.errorLabel.setText(I18N.getLabel("FillAll").getText());
+                MainScene.errorLabel.setTextFill(Color.RED);
+            }
         });
     }
 
@@ -356,15 +278,27 @@ public class AddEmployee extends GridPane
 
             preparedStatement3.executeUpdate(query3);
 
-            clear();
 
-            MainScene.errorLabel.setText("The Employer was added successfully!");
+
+            MainScene.errorLabel.setText(I18N.getLabel("Employee").getText());
             MainScene.errorLabel.setTextFill(Color.GREEN);
 
+            clear();
+
+            ii += 1;
+            ProgressIndicator(ii);
+
+            this.setOnMouseClicked(e->
+            {
+                ii += -1;
+                ProgressIndicator(ii);
+            });
         }
         catch (SQLException e)
         {
-            MainScene.errorLabel.setText(e.getMessage());
+
+            MainScene.errorLabel.setText(I18N.getLabel("ParsingError").getText());
+            MainScene.errorLabel.setTextFill(Color.RED);
         }
 
     }
@@ -389,6 +323,33 @@ public class AddEmployee extends GridPane
         empSalary.setText("");
     }
 
+    public boolean FillAll()
+    {
+        if (
+         empId.getText().isEmpty() ||
+          empName.getText().isEmpty() ||
+          empSurname.getText().isEmpty() ||
+          empBirth.getText().isEmpty() ||
+          empContact.getText().isEmpty() ||
+          empEmail.getText().isEmpty() ||
+          empAddress.getText().isEmpty() ||
+          empIdConBeg.getText().isEmpty() ||
+          empIdConEnd.getText().isEmpty() ||
+          empHours.getText().isEmpty() ||
+          empDep.getValue().isEmpty() ||
+          empJob.getValue().isEmpty() ||
+          empBonus.getText().isEmpty() ||
+          empDeduct.getText().isEmpty() ||
+          empNetto.getText().isEmpty() ||
+          empSalary.getText().isEmpty())
+        {
+            return false;
+        }
+        else
+            return true;
+    }
+
+
     public static void enhanceDatePickers(TextField... textfield)
     {
         for (TextField textField : textfield)
@@ -403,7 +364,9 @@ public class AddEmployee extends GridPane
                 {
                     //If the users types slash again after it has been added, cancels it.
                     MainScene.errorLabel.setText("Cancel User Input");
+                    MainScene.errorLabel.setTextFill(Color.RED);
                     event.consume();
+
                 }
                 textField.selectForward();
                 if (!event.getCharacter().equals("/") && textField.getSelectedText().equals("/"))
@@ -433,5 +396,11 @@ public class AddEmployee extends GridPane
             });
         }
     }
+
+    public void ProgressIndicator(double ii)
+    {
+        progressIndicator.setProgress(ii);
+    }
+
 }
 

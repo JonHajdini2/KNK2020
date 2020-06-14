@@ -144,6 +144,7 @@ public class Login extends Application
         {
             I18N.setLocale(new Locale(languageCB.getValue().toLowerCase()));
             errorLabel.setText("");
+            errorLabel.setTextFill(Color.RED);
             userTxt.setPromptText(I18N.getLabel("user").getText());
             emailTxt.setPromptText(I18N.getLabel("Email").getText());
             passwordTxt.setPromptText(I18N.getLabel("Password").getText());
@@ -218,6 +219,7 @@ public class Login extends Application
         if (userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
             errorLabel.setText(I18N.getLabel("Fill").getText());
+            errorLabel.setTextFill(Color.RED);
         }
         else
         {
@@ -250,6 +252,7 @@ public class Login extends Application
                 else
                 {
                     errorLabel.setText(I18N.getLabel("email").getText());
+                    errorLabel.setTextFill(Color.RED);
                 }
 
             }

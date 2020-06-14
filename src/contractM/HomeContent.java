@@ -1,7 +1,9 @@
 package contractM;
 
+import com.sun.tools.javac.Main;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,11 +14,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import static contractM.MainScene.*;
+
 public class HomeContent extends GridPane
 {
 
     Button btn = I18N.buttonForKey("addbutton");
     Button btn1 = I18N.buttonForKey("updatebutton");
+    public static Button searchButton = new Button();
     HBox hbox2 = new HBox();
 
     public HomeContent(Stage primaryStage, MainScene mainScene)
@@ -86,6 +91,20 @@ public class HomeContent extends GridPane
         AImageView.setFitHeight(200);
         AImageView.setFitWidth(200);
 
+        searchButton.setGraphic(AImageView);
+        searchButton.setPadding(Insets.EMPTY);
+        searchButton.setStyle("-fx-background-color: transparent");
+        searchButton.setOnMouseEntered(e ->
+        {
+            searchButton.setStyle("-fx-cursor: hand; -fx-background-color: transparent");
+        });
+        searchButton.setOnMouseExited(e ->
+        {
+            searchButton.setStyle("-fx-cursor: hand; -fx-background-color: transparent");
+        });
+
+
+
 
         btn.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 10px 3px 10px;\r\n" +
@@ -100,7 +119,7 @@ public class HomeContent extends GridPane
 
 
         vbox1.getChildren().addAll(SImageView, btn1);
-        vbox2.getChildren().addAll(AImageView, btn);
+        vbox2.getChildren().addAll(searchButton, btn);
 
         hbox2.getChildren().addAll(vbox1, vbox2);
         hbox2.setSpacing(10);

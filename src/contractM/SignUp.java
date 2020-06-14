@@ -130,6 +130,7 @@ public class SignUp extends BorderPane
         {
             I18N.setLocale(new Locale(languageCB.getValue().toLowerCase()));
             errorLabel.setText("");
+            errorLabel.setTextFill(Color.RED);
             userTxt.setPromptText(I18N.getLabel("useronly").getText());
             emailTxt.setPromptText(I18N.getLabel("Email").getText());
             passwordTxt.setPromptText(I18N.getLabel("Password").getText());
@@ -177,19 +178,23 @@ public class SignUp extends BorderPane
         if (emailTxt.getText().isEmpty() || userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
             errorLabel.setText(I18N.getLabel("Fill").getText());
+            errorLabel.setTextFill(Color.RED);
         }
         else if (!validateUN(userTxt.getText()))
         {
             errorLabel.setText(I18N.getLabel("UnotValid").getText());
+            errorLabel.setTextFill(Color.RED);
 
         }
         else if (!validateE(emailTxt.getText()))
         {
             errorLabel.setText(I18N.getLabel("EnotValid").getText());
+            errorLabel.setTextFill(Color.RED);
         }
         else if (!validatePSW(passwordTxt.getText()))
         {
             errorLabel.setText(I18N.getLabel("PnotValid").getText());
+            errorLabel.setTextFill(Color.RED);
         }
         else
         {
@@ -210,16 +215,18 @@ public class SignUp extends BorderPane
                 if (r1.next())
                 {
                     errorLabel.setText(I18N.getLabel("Userexists").getText());
+                    errorLabel.setTextFill(Color.RED);
                 }
                 else if (r2.next())
                 {
                     errorLabel.setText(I18N.getLabel("Emailexists").getText());
+                    errorLabel.setTextFill(Color.RED);
                 }
                 else
                 {
-                    errorLabel.setTextFill(Color.GREEN);
-                    errorLabel.setText(I18N.getLabel("UserCreated").getText());
 
+                    errorLabel.setText(I18N.getLabel("UserCreated").getText());
+                    errorLabel.setTextFill(Color.GREEN);
                     Statement statement = DBConnection.setConnection().createStatement();
                     statement.executeUpdate(query1);
                     emailTxt.setText("");
