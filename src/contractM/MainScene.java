@@ -20,6 +20,7 @@ public class MainScene extends Scene
 
     public Button settingsButton = I18N.buttonForKey("Settings");
     public Button logoutButton = I18N.buttonForKey("LogOut");
+    public static Label errorLabel = new Label();
 
     public MainScene(Stage primaryStage)
     {
@@ -42,15 +43,15 @@ public class MainScene extends Scene
 
         HBox menu = new HBox();
         BorderPane centerBorderPane = new BorderPane();
-        Button[] menuButtons = new Button[]{I18N.buttonForKey("homeMenuButton"), I18N.buttonForKey("addMenuButton"),
-         I18N.buttonForKey("updateMenuButton"), I18N.buttonForKey("historyMenuButton")};
+        Button[] menuButtons = new Button[]{I18N.buttonForKey("homeMenuButton"), I18N.buttonForKey("updateMenuButton"),
+         I18N.buttonForKey("addMenuButton"), I18N.buttonForKey("historyMenuButton")};
         BorderPane LogoutLabel = new BorderPane();
 
 
         HBox languageHBox = new HBox();
         ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
         HBox hBoxError = new HBox();
-        Label errorLabel = new Label("Hello...");
+
         // RentalHistoryStage rentalHistoryWindow = new RentalHistoryStage(this.username);
         // this.settingsWindow = new SettingsStage(this, primaryStage);
         LogoutLabel.setRight(hBoxError);
@@ -150,6 +151,7 @@ public class MainScene extends Scene
         });
         menuButtons[2].setOnAction(e ->
         {
+            centerBorderPane.setCenter(new AddEmployee(this));
             //   centerBorderPane.setCenter(new RentMenu(this));
             menuStatus[2] = true;
             menuStatus[1] = false;
