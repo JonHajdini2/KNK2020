@@ -1,12 +1,12 @@
 package contractM;
 
-import java.io.Console;
-import java.sql.*;
-
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ViewAll extends TableView<EmployeeRecord>
 {
@@ -15,9 +15,9 @@ public class ViewAll extends TableView<EmployeeRecord>
     public ViewAll()
     {
         super();
-       
+        
         this.setup();
-        EmployeesMenu.SearchbyName.setOnKeyTyped(e ->
+        EmployeesMenu.SearchEmployee.setOnKeyTyped(e ->
         {
             this.getColumns().clear();
             this.getItems().clear();
@@ -30,21 +30,38 @@ public class ViewAll extends TableView<EmployeeRecord>
     {
         ResultSet rSet;
         
+        
         String Query =
-         "SELECT * FROM employees WHERE Employee_name REGEXP '^" + EmployeesMenu.SearchbyName.getText() + "'";
-        String Query2 = "";
+         "SELECT employees.* , contracts.Contract_date_begin, contracts.Contract_date_due, contracts.job_title, " +
+          "contracts.department, contracts.empSalary " +
+          "FROM" +
+          " employees JOIN contracts  ON employees.Employee_id = contracts.EmpID " +
+          "WHERE employees.Employee_name REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.Employee_surname REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.Employee_birthday REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.Employee_number REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.Employee_email REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.Employee_address REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.Employee_hours REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.status REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR contracts.Contract_date_begin REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR contracts.Contract_date_due REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR contracts.job_title REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR contracts.department REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR contracts.empSalary REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'";
+        
+    
+        
+        
         try
         {
             Statement preparedStatement = DBConnection.setConnection().createStatement();
-            
             rSet = preparedStatement.executeQuery(Query);
-            
         }
         catch (Exception e1)
         {
             rSet = null;
-            e1.printStackTrace();
-            System.out.println(e1.getMessage());
+            //e1.printStackTrace(); /** Uncomment this line if there is an error
         }
         TableColumn<EmployeeRecord, Integer> idColumn = new TableColumn<EmployeeRecord, Integer>("ID");
         TableColumn<EmployeeRecord, String> NameColumn = new TableColumn<>("Name");
@@ -55,6 +72,11 @@ public class ViewAll extends TableView<EmployeeRecord>
         TableColumn<EmployeeRecord, String> EmailColumn = new TableColumn<>("Email");
         TableColumn<EmployeeRecord, String> AddressColumn = new TableColumn<>("Address");
         TableColumn<EmployeeRecord, Integer> HoursColumn = new TableColumn<>("Work Hours");
+        TableColumn<EmployeeRecord, String> JobColumn = new TableColumn<>("Job");
+        TableColumn<EmployeeRecord, String> DepartmentColumn = new TableColumn<>("Department");
+        TableColumn<EmployeeRecord, String> ContractBeginColumn = new TableColumn<>("Contract Begin");
+        TableColumn<EmployeeRecord, String> ContractEndColumn = new TableColumn<>("Contract Due");
+        TableColumn<EmployeeRecord, Integer> SalaryColumn = new TableColumn<>("Salary");
         
         
         this.getColumns().add(idColumn);
@@ -66,6 +88,11 @@ public class ViewAll extends TableView<EmployeeRecord>
         this.getColumns().add(EmailColumn);
         this.getColumns().add(AddressColumn);
         this.getColumns().add(HoursColumn);
+        this.getColumns().add(JobColumn);
+        this.getColumns().add(DepartmentColumn);
+        this.getColumns().add(ContractBeginColumn);
+        this.getColumns().add(ContractEndColumn);
+        this.getColumns().add(SalaryColumn);
         
         this.setEditable(false);
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -77,18 +104,29 @@ public class ViewAll extends TableView<EmployeeRecord>
         EmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         AddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         HoursColumn.setCellValueFactory(new PropertyValueFactory<>("hours"));
+        JobColumn.setCellValueFactory(new PropertyValueFactory<>("job"));
+        DepartmentColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
+        ContractBeginColumn.setCellValueFactory(new PropertyValueFactory<>("contractBegin"));
+        ContractEndColumn.setCellValueFactory(new PropertyValueFactory<>("contractEnd"));
+        SalaryColumn.setCellValueFactory(new PropertyValueFactory<>("salary"));
         
         try
         {
             while (rSet.next())
+            {
+                
                 this.getItems().add(new EmployeeRecord(rSet.getInt("Employee_id"), rSet.getString("Employee_name"),
                  rSet.getString("Employee_surname"), rSet.getDate("Employee_birthday"), rSet.getBoolean(
                  "status"), rSet.getString("Employee_number"), rSet.getString("Employee_email"), rSet.getString(
-                 "Employee_address"), rSet.getInt("Employee_hours")));
+                 "Employee_address"), rSet.getInt("Employee_hours"), rSet.getString("job_title"), rSet.getString(
+                 "department"), rSet.getDate("Contract_date_begin"), rSet.getDate("Contract_date_due"),
+                 rSet.getString("empSalary")));
+                
+            }
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            //e.printStackTrace(); /** Uncomment this line if there is an error with database
         }
     }
     

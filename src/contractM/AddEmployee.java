@@ -272,11 +272,7 @@ public class AddEmployee extends GridPane
     
     public boolean FillAll()
     {
-        if (empId.getText().isEmpty() || empName.getText().isEmpty() || empSurname.getText().isEmpty() || empBirth.getText().isEmpty() || empContact.getText().isEmpty() || empEmail.getText().isEmpty() || empAddress.getText().isEmpty() || empIdConBeg.getText().isEmpty() || empIdConEnd.getText().isEmpty() || empHours.getText().isEmpty() || empDep.getValue().isEmpty() || empJob.getValue().isEmpty() || empBonus.getText().isEmpty() || empDeduct.getText().isEmpty() || empNetto.getText().isEmpty() || empSalary.getText().isEmpty())
-        {
-            return false;
-        }
-        else return true;
+        return !empId.getText().isEmpty() && !empName.getText().isEmpty() && !empSurname.getText().isEmpty() && !empBirth.getText().isEmpty() && !empContact.getText().isEmpty() && !empEmail.getText().isEmpty() && !empAddress.getText().isEmpty() && !empIdConBeg.getText().isEmpty() && !empIdConEnd.getText().isEmpty() && !empHours.getText().isEmpty() && !empDep.getValue().isEmpty() && !empJob.getValue().isEmpty() && !empBonus.getText().isEmpty() && !empDeduct.getText().isEmpty() && !empNetto.getText().isEmpty() && !empSalary.getText().isEmpty();
     }
     
     
@@ -307,12 +303,13 @@ public class AddEmployee extends GridPane
                     String textUntilHere = textField.getText(0, textField.getCaretPosition());
                     if (textUntilHere.matches("\\d\\d") || textUntilHere.matches("\\d\\d/\\d\\d"))
                     {
-                        String textAfterHere = ""; try
-                    {
-                        textAfterHere = textField.getText(textField.getCaretPosition() + 1,
-                         textField.getText().length());
-                    }
-                    catch (Exception ignored) {} int caretPosition = textField.getCaretPosition();
+                        String textAfterHere = "";
+                        try
+                        {
+                            textAfterHere = textField.getText(textField.getCaretPosition() + 1,
+                             textField.getText().length());
+                        }
+                        catch (Exception ignored) {} int caretPosition = textField.getCaretPosition();
                         textField.setText(textUntilHere + "/" + textAfterHere);
                         textField.positionCaret(caretPosition + 1);
                     }
@@ -329,34 +326,21 @@ public class AddEmployee extends GridPane
     private void ForceFieldINT()
     {
         // force the field to be numeric only
-        empNetto.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            if (!newValue.matches("\\d*"))
-            {
-                empNetto.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        
-        
-        // force the field to be numeric only
-        empBonus.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            if (!newValue.matches("\\d*"))
-            {
-                empBonus.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        
-        
-        // force the field to be numeric only
-        empDeduct.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            if (!newValue.matches("\\d*"))
-            {
-                empDeduct.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        
+        ForceINT(empBonus, empNetto, empDeduct, empHours);
+    
+        ForceINT(empContact, empId, empSalary, empHours);
+    }
+    
+    private void ForceINT(TextField empContact, TextField empId, TextField empSalary, TextField empHours)
+    {
+        ForceIntExtract(empContact, empId);
+    
+        ForceIntExtract(empHours, empSalary);
+    
+    }
+    
+    private void ForceIntExtract(TextField empContact, TextField empId)
+    {
         empId.textProperty().addListener((observable, oldValue, newValue) ->
         {
             if (!newValue.matches("\\d*"))
@@ -372,23 +356,6 @@ public class AddEmployee extends GridPane
                 empContact.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        
-        empSalary.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            if (!newValue.matches("\\d*"))
-            {
-                empSalary.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        
-        
-        empHours.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            if (!newValue.matches("\\d*"))
-            {
-                empHours.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
     }
     
     private void AutomaticSalary()
@@ -400,7 +367,7 @@ public class AddEmployee extends GridPane
             {
                 empSalary.setText(String.valueOf(Integer.parseInt(empBonus.getText()) - Integer.parseInt(empDeduct.getText()) + Integer.parseInt(newValue)));
             }
-            catch (NumberFormatException NE)
+            catch (NumberFormatException ignored)
             {
             
             }
@@ -413,7 +380,7 @@ public class AddEmployee extends GridPane
             {
                 empSalary.setText(String.valueOf(Integer.parseInt(empBonus.getText()) - Integer.parseInt(newValue) + Integer.parseInt(empNetto.getText())));
             }
-            catch (NumberFormatException NE)
+            catch (NumberFormatException ignored)
             {
             
             }
@@ -426,7 +393,7 @@ public class AddEmployee extends GridPane
             {
                 empSalary.setText(String.valueOf(-Integer.parseInt(empDeduct.getText()) + Integer.parseInt(newValue) + Integer.parseInt(empNetto.getText())));
             }
-            catch (NumberFormatException NE)
+            catch (NumberFormatException ignored)
             {
             
             }

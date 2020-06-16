@@ -14,10 +14,16 @@ public class EmployeeRecord
     private String email;
     private String address;
     private Integer hours;
+    private String job;
+    private String department;
+    private Date contractBegin;
+    private Date contractEnd;
+    private String salary;
     
     
     public EmployeeRecord(int id, String name, String surname, Date birthDate, Boolean MarriageStatus, String number,
-                          String email, String address, Integer hours)
+                          String email, String address, Integer hours, String job, String department,
+                          Date contractBegin, Date contractEnd, String salary)
     {
         this.setId(id);
         this.setName(name);
@@ -28,6 +34,11 @@ public class EmployeeRecord
         this.setEmail(email);
         this.setAddress(address);
         this.setHours(hours);
+        this.setJob(job);
+        this.setDepartment(department);
+        this.setContractBegin(contractBegin);
+        this.setContractEnd(contractEnd);
+        this.setSalary(salary);
     }
     
     
@@ -49,6 +60,16 @@ public class EmployeeRecord
     
     public Integer getHours() { return this.hours;}
     
+    public String getJob() { return this.job;}
+    
+    public String getDepartment() { return this.department;}
+    
+    public Date getContractBegin() { return this.contractBegin;}
+    
+    public Date getContractEnd() { return this.contractEnd;}
+    
+    public String getSalary() { return this.salary;}
+    
     
     public void setId(int id) { this.id = id; }
     
@@ -67,6 +88,18 @@ public class EmployeeRecord
     public void setAddress(String Address) { this.address = Address; }
     
     public void setHours(Integer Hours) { this.hours = Hours; }
+    
+    public void setJob(String job) { this.job = job; }
+    
+    public void setDepartment(String department) { this.department = department; }
+    
+    public void setContractBegin(Date contractBegin) { this.contractBegin = contractBegin; }
+    
+    public void setContractEnd(Date contractEnd) { this.contractEnd = contractEnd; }
+    
+    public void setSalary(String salary) { this.salary = salary; }
+    
+    
     
     
 }

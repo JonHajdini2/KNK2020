@@ -2,32 +2,31 @@ package contractM;
 
 import javafx.stage.Stage;
 
-public class MainProgram
+public class MainProgram extends Stage
 {
-    public static void createMainStage()
+    public void createMainStage()
     {
-        Stage mainStage = new Stage();
-
-        MainScene mS = new MainScene(mainStage);
-        mainStage.setResizable(false);
+      
+        MainScene mS = new MainScene(this);
+        this.setResizable(false);
 
         Login M = new Login();
 
-        mainStage.setScene(mS);
-        mainStage.setTitle("Payroll and Contract Management");
-        mainStage.show();
+        this.setScene(mS);
+        this.setTitle("Payroll and Contract Management");
+        this.show();
 
 
         mS.logoutButton.setOnAction(e ->
         {
 
             M.start(new Stage());
-            mainStage.hide();
+            this.hide();
         });
         ViewStage V = new ViewStage();
         mS.ExitButton.setOnAction(e->
         {
-            mainStage.close();
+            this.close();
             V.close();
         });
     }

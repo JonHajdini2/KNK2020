@@ -16,6 +16,9 @@ import javafx.stage.StageStyle;
 
 import java.util.Locale;
 
+import static contractM.EmployeesMenu.SearchEmployee;
+import static contractM.HomeContent.*;
+
 public class MainScene extends Scene
 {
 
@@ -57,21 +60,16 @@ public class MainScene extends Scene
         ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
         HBox hBoxError = new HBox();
 
-        // RentalHistoryStage rentalHistoryWindow = new RentalHistoryStage(this.username);
-        // this.settingsWindow = new SettingsStage(this, primaryStage);
+     
         LogoutLabel.setRight(hBoxError);
         LogoutLabel.setLeft(settingsAndLogout);
 
         borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #03DAC6, #018786);");
-        // borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #00ffff, #003f3f);");
-        // borderPane.setLeft(leftBorderPane);
+     
         borderPane.setCenter(centerBorderPane);
         ExitButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
          "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
-        ExitButton.setOnAction(e ->
-        {
-            //this.settingsWindow.show();
-        });
+     
         ExitButton.setOnMouseEntered(e ->
         {
             ExitButton.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
@@ -206,7 +204,7 @@ public class MainScene extends Scene
                 menuButtons[3].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: " +
                  "solid; -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
-        HomeContent.searchButton.setOnAction(e->
+        searchButton.setOnAction(e->
         {
             centerBorderPane.setCenter(new AddEmployee(this));
 
@@ -224,21 +222,26 @@ public class MainScene extends Scene
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
 
         });
-        /*HomeContent.searchButton.setOnMouseEntered(e ->
+        updateButton.setOnAction(e->
         {
-            menuButtons[2].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+            centerBorderPane.setCenter(new UpdateEmployee());
+        
+            menuStatus[1] = true;
+            menuStatus[2] = false;
+            menuStatus[0] = false;
+            menuStatus[3] = false;
+            menuButtons[2].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
+             " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[0].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
+             " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[3].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
+             " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[1].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
+        
         });
-        HomeContent.searchButton.setOnMouseExited(e ->
-        {
-            if (!menuStatus[2])
-                menuButtons[2].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: " +
-                 "solid; -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
-        });*/
-
-
-
-
+    
+    
         topBorderPane.setCenter(menu);
         topBorderPane.setRight(languageHBox);
         topBorderPane.setStyle("-fx-border-width: 0px 0px 1px 0px; -fx-border-style: none none solid none; " +
@@ -253,6 +256,7 @@ public class MainScene extends Scene
             I18N.setLocale(new Locale(languageCB.getValue().toLowerCase()));
             errorLabel.setText("");
             errorLabel.setTextFill(Color.RED);
+            SearchEmployee.setPromptText(I18N.getLabel("SearchEmployee").getText());
         });
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
         languageHBox.setAlignment(Pos.CENTER);
@@ -269,10 +273,6 @@ public class MainScene extends Scene
             viewStage.close();
         });
         
-     
-        
-        
-
         super.setRoot(borderPane);
     }
 }

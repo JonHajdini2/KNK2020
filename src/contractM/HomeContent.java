@@ -22,6 +22,7 @@ public class HomeContent extends GridPane
     Button btn = I18N.buttonForKey("addbutton");
     Button btn1 = I18N.buttonForKey("updatebutton");
     public static Button searchButton = new Button();
+    public static Button updateButton = new Button();
     HBox hbox2 = new HBox();
 
     public HomeContent(Stage primaryStage, MainScene mainScene)
@@ -43,15 +44,13 @@ public class HomeContent extends GridPane
 
 
 
-        //Text homeImageText = new Text(50, 175, "Contract Mangment");
         Text homeImageDescription = I18N.getText("Welcometext");
         homeImageDescription.relocate(50,175);
         Button homeImageButton = new Button("Info");
 
         this.setStyle("-fx-padding: 20px; -fx-vgap: 20px;");
 
-        //homeImageText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 50));
-        //homeImageText.setStyle("-fx-fill: linear-gradient(to bottom right, #003f3f, #00ffff);");
+      
         homeImageDescription.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
         homeImageDescription.setStyle("-fx-fill: linear-gradient(to bottom right, #003f3f, #048080);");
         homeImageButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #003f3f, #00ffff); " +
@@ -80,11 +79,25 @@ public class HomeContent extends GridPane
         VBox vbox2 = new VBox();
         vbox2.setSpacing(10);
         vbox2.setAlignment(Pos.CENTER);
+        
+        
         Image searchImage = new Image("file:Images/search.png");
         ImageView SImageView = new ImageView(searchImage);
         SImageView.setFitHeight(200);
         SImageView.setFitWidth(200);
-
+    
+        updateButton.setGraphic(SImageView);
+        updateButton.setPadding(Insets.EMPTY);
+        updateButton.setStyle("-fx-background-color: transparent");
+        updateButton.setOnMouseEntered(e ->
+        {
+            updateButton.setStyle("-fx-cursor: hand; -fx-background-color: transparent");
+        });
+        updateButton.setOnMouseExited(e ->
+        {
+            updateButton.setStyle("-fx-cursor: hand; -fx-background-color: transparent");
+        });
+        
 
         Image AddImage = new Image("file:Images/employee.png");
         ImageView AImageView = new ImageView(AddImage);
@@ -118,7 +131,7 @@ public class HomeContent extends GridPane
         btn1.setTextFill(Color.rgb(186, 201, 209));
 
 
-        vbox1.getChildren().addAll(SImageView, btn1);
+        vbox1.getChildren().addAll(updateButton, btn1);
         vbox2.getChildren().addAll(searchButton, btn);
 
         hbox2.getChildren().addAll(vbox1, vbox2);

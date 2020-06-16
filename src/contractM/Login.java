@@ -31,6 +31,8 @@ public class Login extends Application
     /*****/
 
     private Stage mainStage;
+    
+    MainProgram LoginSuccessStage = new MainProgram();
 
     public static void main(String[] args)
     {
@@ -248,7 +250,7 @@ public class Login extends Application
                 if (result.next() || Eresult.next())
                 {
                     mainStage.hide();
-                    MainProgram.createMainStage();
+                    LoginSuccessStage.createMainStage();
 
                 }
                 else
