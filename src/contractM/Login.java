@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -29,6 +30,8 @@ public class Login extends Application
     private TextField userTxt = new TextField();
     private Label errorLabel = new Label();
     /*****/
+    
+    public static UserSession userSession;
 
     private Stage mainStage;
     
@@ -42,7 +45,7 @@ public class Login extends Application
     @Override
     public void start(Stage primaryStage)
     {
-
+     
         mainStage = primaryStage;
 
         emailTxt.setPromptText("Email");
@@ -219,7 +222,8 @@ public class Login extends Application
 
     private void loginUser()
     {
-
+    
+        
         if (userTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
         {
             errorLabel.setText(I18N.getLabel("Fill").getText());
@@ -249,9 +253,11 @@ public class Login extends Application
 
                 if (result.next() || Eresult.next())
                 {
+                    
                     mainStage.hide();
+                    Login.userSession = UserSession.getInstace(userTxt.getText(), new Date());
+                    
                     LoginSuccessStage.createMainStage();
-
                 }
                 else
                 {

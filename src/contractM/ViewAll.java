@@ -19,6 +19,7 @@ public class ViewAll extends TableView<EmployeeRecord>
         super();
         
         this.setup();
+        this.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon;");
         EmployeesMenu.SearchEmployee.setOnKeyTyped(e ->
         {
             this.getColumns().clear();
@@ -32,12 +33,16 @@ public class ViewAll extends TableView<EmployeeRecord>
             
             if (EmployeesMenu.SearchEmployee.getText().isEmpty())
             {
-                MainScene.errorLabel.setText("No ID is specified");
+               
+                MainScene.errorLabel.setText(I18N.getLabel("NOID").getText());
                 MainScene.errorLabel.setTextFill(Color.RED);
             }
             else
             {
                 this.Delete();
+                this.getColumns().clear();
+                this.getItems().clear();
+                this.setup();
             }
         });
         
@@ -149,39 +154,47 @@ public class ViewAll extends TableView<EmployeeRecord>
     
     private void Delete()
     {
-        ResultSet rs;
-        String Query = "DELETE employees.*, contracts.*, payment.* FROM employees JOIN contracts ON employees" +
-         ".Employee_id = contracts.EmpID JOIN payment  ON employees.Employee_id = payment.empId WHERE Employee_id = " +
-         "'" + EmployeesMenu.SearchEmployee.getText() + "'";
+        int rs;
+        String Query = "DELETE FROM employees WHERE Employee_id='" + EmployeesMenu.SearchEmployee.getText() + "'";
         try
         {
             
             Statement PreparedStatement = DBConnection.setConnection().createStatement();
-            rs = PreparedStatement.executeQuery(Query);
+            rs = PreparedStatement.executeUpdate(Query);
             
         }
         catch (SQLException e)
         {
-            //e.printStackTrace();}
-            rs = null;
+            rs = 0;
+            //e.printStackTrace();
         }
-    
+        
+        
         try
         {
-        
-           if(rs.next())
-           {
-               MainScene.errorLabel.setText("Employee Deletion was successful");
-               MainScene.errorLabel.setTextFill(Color.GREEN);
-           }
-        
-        }
-        catch (SQLException e)
-        {
-            //e.printStackTrace();}
+            if (rs > 0)
+            {
+             
+                MainScene.errorLabel.setText(I18N.getLabel("Deletion").getText());
+                MainScene.errorLabel.setTextFill(Color.GREEN);
+            }
+            else
+            {
+               
+                MainScene.errorLabel.setText(I18N.getLabel("NoDeletion").getText());
+                MainScene.errorLabel.setTextFill(Color.RED);
+            }
+            
             
         }
-    
-    
+        catch (NullPointerException e)
+        {
+            
+            MainScene.errorLabel.setText(I18N.getLabel("NoDeletion").getText());
+            MainScene.errorLabel.setTextFill(Color.RED);
+            //System.out.println(e.getMessage());
+        }
     }
 }
+
+

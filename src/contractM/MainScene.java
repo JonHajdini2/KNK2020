@@ -2,6 +2,7 @@ package contractM;
 
 
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,8 +29,10 @@ public class MainScene extends Scene
     public static boolean[] menuStatus = new boolean[]{true, false, false, false};
     public static Button[] menuButtons = new Button[]{I18N.buttonForKey("homeMenuButton"), I18N.buttonForKey(
      "updateMenuButton"), I18N.buttonForKey("addMenuButton"), I18N.buttonForKey("viewMenuButton")};
+    
 
     public static Label errorLabel = new Label();
+    public static Label welcomeLabel = new Label();
 
     public MainScene(Stage primaryStage)
     {
@@ -46,8 +49,9 @@ public class MainScene extends Scene
 
 
         HBox settingsAndLogout = new HBox();
-
-
+    
+      
+        welcomeLabel.setText(Login.userSession.toString());
         BorderPane topBorderPane = new BorderPane();
 
         HBox menu = new HBox();
@@ -62,7 +66,12 @@ public class MainScene extends Scene
 
      
         LogoutLabel.setRight(hBoxError);
+      
+        
         LogoutLabel.setLeft(settingsAndLogout);
+        welcomeLabel.setMaxWidth(Double.MAX_VALUE);
+        welcomeLabel.setAlignment(Pos.CENTER);
+        LogoutLabel.setCenter(welcomeLabel);
 
         borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #03DAC6, #018786);");
      
