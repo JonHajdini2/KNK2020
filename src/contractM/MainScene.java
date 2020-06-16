@@ -19,12 +19,12 @@ import java.util.Locale;
 public class MainScene extends Scene
 {
 
-    public Button settingsButton = I18N.buttonForKey("Settings");
+    public Button ExitButton = I18N.buttonForKey("Close");
     public Button logoutButton = I18N.buttonForKey("LogOut");
     public static BorderPane centerBorderPane = new BorderPane();
     public static boolean[] menuStatus = new boolean[]{true, false, false, false};
     public static Button[] menuButtons = new Button[]{I18N.buttonForKey("homeMenuButton"), I18N.buttonForKey(
-     "updateMenuButton"), I18N.buttonForKey("addMenuButton"), I18N.buttonForKey("historyMenuButton")};
+     "updateMenuButton"), I18N.buttonForKey("addMenuButton"), I18N.buttonForKey("viewMenuButton")};
 
     public static Label errorLabel = new Label();
 
@@ -66,20 +66,20 @@ public class MainScene extends Scene
         // borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #00ffff, #003f3f);");
         // borderPane.setLeft(leftBorderPane);
         borderPane.setCenter(centerBorderPane);
-        settingsButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+        ExitButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
          "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
-        settingsButton.setOnAction(e ->
+        ExitButton.setOnAction(e ->
         {
             //this.settingsWindow.show();
         });
-        settingsButton.setOnMouseEntered(e ->
+        ExitButton.setOnMouseEntered(e ->
         {
-            settingsButton.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+            ExitButton.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
         });
-        settingsButton.setOnMouseExited(e ->
+        ExitButton.setOnMouseExited(e ->
         {
-            settingsButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
+            ExitButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
         logoutButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
@@ -94,7 +94,7 @@ public class MainScene extends Scene
             logoutButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
-        settingsAndLogout.getChildren().addAll(settingsButton, logoutButton);
+        settingsAndLogout.getChildren().addAll(ExitButton, logoutButton);
         settingsAndLogout.setStyle("-fx-spacing: 10px;");
         centerBorderPane.setTop(topBorderPane);
         centerBorderPane.setCenter(new HomeContent(primaryStage, this));
@@ -131,7 +131,7 @@ public class MainScene extends Scene
         });
         menuButtons[1].setOnAction(e ->
         {
-            //   centerBorderPane.setCenter(new CarsMenu());
+            centerBorderPane.setCenter(new UpdateEmployee());
             menuStatus[1] = true;
             menuStatus[0] = false;
             menuStatus[2] = false;
@@ -180,9 +180,10 @@ public class MainScene extends Scene
                 menuButtons[2].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: " +
                  "solid; -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
+        ViewStage viewStage = new ViewStage();
         menuButtons[3].setOnAction(e ->
         {
-            //   centerBorderPane.setCenter(new HistoryMenu(rentalHistoryWindow, this));
+            centerBorderPane.setCenter(new EmployeesMenu(viewStage, this));
             menuStatus[3] = true;
             menuStatus[1] = false;
             menuStatus[2] = false;
@@ -265,9 +266,12 @@ public class MainScene extends Scene
 
         primaryStage.setOnCloseRequest(e ->
         {
-            // this.settingsWindow.close();
-            // rentalHistoryWindow.close();
+            viewStage.close();
         });
+        
+     
+        
+        
 
         super.setRoot(borderPane);
     }

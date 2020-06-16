@@ -8,7 +8,7 @@ public class MainProgram
     {
         Stage mainStage = new Stage();
 
-        MainScene mS = new MainScene(new Stage());
+        MainScene mS = new MainScene(mainStage);
         mainStage.setResizable(false);
 
         Login M = new Login();
@@ -24,11 +24,13 @@ public class MainProgram
             M.start(new Stage());
             mainStage.hide();
         });
+        ViewStage V = new ViewStage();
+        mS.ExitButton.setOnAction(e->
+        {
+            mainStage.close();
+            V.close();
+        });
     }
-
-
-
-
     public static void main(String[] args)
     {
     }
