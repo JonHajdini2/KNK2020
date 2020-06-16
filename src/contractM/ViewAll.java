@@ -3,7 +3,9 @@ package contractM;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,6 +26,22 @@ public class ViewAll extends TableView<EmployeeRecord>
             this.setup();
             
         });
+        
+        EmployeesMenu.deleteEmployee.setOnAction(e ->
+        {
+            
+            if (EmployeesMenu.SearchEmployee.getText().isEmpty())
+            {
+                MainScene.errorLabel.setText("No ID is specified");
+                MainScene.errorLabel.setTextFill(Color.RED);
+            }
+            else
+            {
+                this.Delete();
+            }
+        });
+        
+        
     }
     
     private void setup()
@@ -37,6 +55,7 @@ public class ViewAll extends TableView<EmployeeRecord>
           "FROM" +
           " employees JOIN contracts  ON employees.Employee_id = contracts.EmpID " +
           "WHERE employees.Employee_name REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.Employee_id = '" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR employees.Employee_surname REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR employees.Employee_birthday REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR employees.Employee_number REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
@@ -49,8 +68,6 @@ public class ViewAll extends TableView<EmployeeRecord>
           + "OR contracts.job_title REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR contracts.department REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR contracts.empSalary REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'";
-        
-    
         
         
         try
@@ -124,10 +141,47 @@ public class ViewAll extends TableView<EmployeeRecord>
                 
             }
         }
-        catch (SQLException e)
+        catch (SQLException | NullPointerException e)
         {
             //e.printStackTrace(); /** Uncomment this line if there is an error with database
         }
     }
     
+    private void Delete()
+    {
+        ResultSet rs;
+        String Query = "DELETE employees.*, contracts.*, payment.* FROM employees JOIN contracts ON employees" +
+         ".Employee_id = contracts.EmpID JOIN payment  ON employees.Employee_id = payment.empId WHERE Employee_id = " +
+         "'" + EmployeesMenu.SearchEmployee.getText() + "'";
+        try
+        {
+            
+            Statement PreparedStatement = DBConnection.setConnection().createStatement();
+            rs = PreparedStatement.executeQuery(Query);
+            
+        }
+        catch (SQLException e)
+        {
+            //e.printStackTrace();}
+            rs = null;
+        }
+    
+        try
+        {
+        
+           if(rs.next())
+           {
+               MainScene.errorLabel.setText("Employee Deletion was successful");
+               MainScene.errorLabel.setTextFill(Color.GREEN);
+           }
+        
+        }
+        catch (SQLException e)
+        {
+            //e.printStackTrace();}
+            
+        }
+    
+    
+    }
 }

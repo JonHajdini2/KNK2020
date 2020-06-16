@@ -13,7 +13,8 @@ import javafx.scene.text.FontWeight;
 
 public class EmployeesMenu extends VBox
 {
-    public static Button showPayment = I18N.buttonForKey("UpdateEmployee");
+    public static Button UpdateEmployee = I18N.buttonForKey("UpdateEmployee");
+    public static Button deleteEmployee = I18N.buttonForKey("DeleteEmployeebyID");
     public static TextField SearchEmployee = new TextField();
 
     
@@ -47,19 +48,31 @@ public class EmployeesMenu extends VBox
         ViewAll tableView = new ViewAll();
         HBox newTabButtonHBox = new HBox();
         Button newTabButton = I18N.buttonForKey("ShowTab");
-        newTabButtonHBox.getChildren().addAll(showPayment, newTabButton);
+        newTabButtonHBox.getChildren().addAll(deleteEmployee, UpdateEmployee, newTabButton);
         newTabButtonHBox.setSpacing(60);
         newTabButtonHBox.setAlignment(Pos.CENTER_RIGHT);
-        showPayment.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+        UpdateEmployee.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
          "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
-        showPayment.setOnMouseEntered(e ->
+        UpdateEmployee.setOnMouseEntered(e ->
         {
-            showPayment.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+            UpdateEmployee.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
         });
-        showPayment.setOnMouseExited(e ->
+        UpdateEmployee.setOnMouseExited(e ->
         {
-            showPayment.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+            UpdateEmployee.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+             "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+        });
+        deleteEmployee.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+         "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+        deleteEmployee.setOnMouseEntered(e ->
+        {
+            deleteEmployee.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+             "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
+        });
+        deleteEmployee.setOnMouseExited(e ->
+        {
+            deleteEmployee.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
         newTabButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
