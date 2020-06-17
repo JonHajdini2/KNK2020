@@ -93,7 +93,7 @@ public class AddEmployee extends GridPane
         ImageView employeeImageView = new ImageView(employeeImage);
         
         
-        employeeImageVBox.setStyle("-fx-background-color: transparent; -fx-padding: 20px;");
+        employeeImageVBox.setStyle("-fx-background-color: transparent;");
         employeeImageVBox.getChildren().addAll(employeeImageView);
         
         ClearButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
@@ -121,10 +121,10 @@ public class AddEmployee extends GridPane
         this.setPadding(new Insets(100, 0, 0, 100)); this.setHgap(40); this.setVgap(10);
         Label label = I18N.getLabel("Employee_Details");
         
-        label.setStyle("-fx-font-size:15px;-fx-color:rgb(186, 201, 209)"); this.getChildren().add(label);
+        label.setStyle("-fx-font-size:15px;-fx-color:rgb(186, 201, 209)");
         label.setPadding(new Insets(0, 0, 20, 0));
-        
-        
+    
+        this.add(label, 0, 0, 4, 1);
         this.add(I18N.getLabel("Employee_ID"), 0, 1); this.add(empId, 1, 1);
         this.add(I18N.getLabel("First_Name"), 0, 2); this.add(empName, 1, 2); this.add(I18N.getLabel("Surname"), 0, 3);
         this.add(empSurname, 1, 3); this.add(I18N.getLabel("Date_Of_Birth"), 0, 4); this.add(empBirth, 1, 4);
@@ -186,7 +186,7 @@ public class AddEmployee extends GridPane
         this.add(btAdd, 2, 10); GridPane.setHalignment(btAdd, HPos.RIGHT); this.add(ClearButton, 3, 10);
         GridPane.setHalignment(btAdd, HPos.RIGHT);
         
-        this.add(employeeImageVBox, 5, 2, 6, 7); this.add(progressIndicator, 12, 11);
+        this.add(employeeImageVBox, 6, 2, 6, 7); this.add(progressIndicator, 12, 11);
         
         
         ClearButton.setOnAction(e -> clear());

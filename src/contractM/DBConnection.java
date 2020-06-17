@@ -12,6 +12,13 @@ public class DBConnection
 {
 
     private static Connection dbConnection;
+    
+    private static String hostProvider = "localhost";
+    private static String DBname = "MenaxhimiDB";
+    private static String user = "root";
+    private static String password = "password";
+    
+    
 
     public static Connection setConnection()
     {
@@ -19,10 +26,10 @@ public class DBConnection
         {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
-            dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/MenaxhimiDB?useUnicode=true" +
-             "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","password");
-
-
+            String url = "jdbc:mysql://" + hostProvider + ":3306/" + DBname + "?useUnicode=true" +
+        "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            
+            dbConnection = DriverManager.getConnection(url, user, password);
         }
         catch (Exception ex)
         {

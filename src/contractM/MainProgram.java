@@ -26,7 +26,7 @@ public class MainProgram extends Stage
             
             M.start(new Stage());
             Login.userSession.cleanUserSession();
-          
+            Login.languageCB.setValue(MainScene.languageCB.getValue());
             this.close();
         
         });

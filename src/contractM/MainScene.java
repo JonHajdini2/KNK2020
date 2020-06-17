@@ -29,6 +29,7 @@ public class MainScene extends Scene
     public static boolean[] menuStatus = new boolean[]{true, false, false, false};
     public static Button[] menuButtons = new Button[]{I18N.buttonForKey("homeMenuButton"), I18N.buttonForKey(
      "updateMenuButton"), I18N.buttonForKey("addMenuButton"), I18N.buttonForKey("viewMenuButton")};
+    public static ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
     
 
     public static Label errorLabel = new Label();
@@ -61,7 +62,7 @@ public class MainScene extends Scene
 
 
         HBox languageHBox = new HBox();
-        ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
+      
         HBox hBoxError = new HBox();
 
      
@@ -266,6 +267,7 @@ public class MainScene extends Scene
             errorLabel.setText("");
             errorLabel.setTextFill(Color.RED);
             SearchEmployee.setPromptText(I18N.getLabel("SearchEmployee").getText());
+          
         });
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
         languageHBox.setAlignment(Pos.CENTER);
