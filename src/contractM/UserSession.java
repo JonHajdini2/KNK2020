@@ -45,6 +45,10 @@ public final class UserSession
     @Override
     public String toString()
     {
-        return "     Welcome " + userName + "\n" + formatter.format(getDateLogin);
+        if (userName.length() < 7)
+            return "     Welcome " + userName + "\n" + formatter.format(getDateLogin);
+        else
+            return "  Welcome " + userName + "\n" + formatter.format(getDateLogin);
+            
     }
 }

@@ -21,8 +21,11 @@ import javafx.stage.Stage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.Locale;
+
+import static contractM.SignUp.validateE;
 
 
 public class Login extends Application
@@ -115,10 +118,6 @@ public class Login extends Application
         });
         
         
-        
-        
-        
-        
         mainGrid.add(hbLogin, 0, 0);
         mainGrid.add(gridPane, 0, 1);
         
@@ -127,16 +126,16 @@ public class Login extends Application
         gridPane.add(usernameIconIV2, 0, 2);
         gridPane.add(passwordTxt, 1, 2);
         gridPane.add(hb2, 1, 3);
-
-        userTxt.setOnKeyPressed(e->
+        
+        userTxt.setOnKeyPressed(e ->
         {
-            if(e.getCode() == KeyCode.ENTER)
+            if (e.getCode() == KeyCode.ENTER)
                 this.loginUser();
         });
-    
-        passwordTxt.setOnKeyPressed(e->
+        
+        passwordTxt.setOnKeyPressed(e ->
         {
-            if(e.getCode() == KeyCode.ENTER)
+            if (e.getCode() == KeyCode.ENTER)
                 this.loginUser();
         });
         
@@ -232,16 +231,15 @@ public class Login extends Application
             signup.userTxt.setText("");
             
         });
-    
-    
-    
+        
+        
         btnLogin.setOnMouseEntered(e -> btnLogin.setStyle("  -fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 15px 3px 15px;\r\n" +
          "    -fx-background-color: #2C3E48; -fx-cursor: hand;"));
         btnLogin.setOnMouseExited(e -> btnLogin.setStyle(" -fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 15px 3px 15px;\r\n" +
          "    -fx-background-color: #2C3E48;-fx-cursor: hand;"));
-    
+        
         btnRegister.setOnMouseEntered(e -> btnRegister.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 15px 3px 15px;\r\n" +
          "    -fx-background-color: #2C3E48;-fx-cursor: hand;"));
@@ -297,7 +295,14 @@ public class Login extends Application
                 {
                     
                     mainStage.hide();
-                    Login.userSession = UserSession.getInstace(userTxt.getText(), new Date());
+                    
+                    if (validateE(userTxt.getText()))
+                    {
+                        String user = GetUsername(userTxt.getText());
+                        Login.userSession = UserSession.getInstace(user, new Date());
+                    }
+                    else
+                        Login.userSession = UserSession.getInstace(userTxt.getText(), new Date());
                     
                     LoginSuccessStage.createMainStage();
                 }
@@ -321,6 +326,35 @@ public class Login extends Application
             
         }
         
+    }
+    
+    
+    private String GetUsername(String email)
+    {
+        ResultSet rSet;
+        
+        String Query = "SELECT username FROM managers WHERE uemail = '" + email + "'";
+        try
+        {
+            Statement preparedStatement = DBConnection.setConnection().createStatement();
+            rSet = preparedStatement.executeQuery(Query);
+        }
+        catch (Exception e1)
+        {
+            rSet = null;
+            //e1.printStackTrace(); /** Uncomment this line if there is an error*/
+        }
+        
+        try
+        {
+            if (rSet.next())
+            {
+                String user = rSet.getString(1);
+                return user;
+            }
+            return "ERROR";
+        }
+        catch (SQLException | NullPointerException ignored) { return "ERROR";}
     }
     
     

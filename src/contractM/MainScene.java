@@ -66,13 +66,12 @@ public class MainScene extends Scene
         HBox hBoxError = new HBox();
 
      
-        LogoutLabel.setRight(hBoxError);
+        LogoutLabel.setRight(welcomeLabel);
       
         
         LogoutLabel.setLeft(settingsAndLogout);
-        welcomeLabel.setMaxWidth(Double.MAX_VALUE);
-        welcomeLabel.setAlignment(Pos.CENTER);
-        LogoutLabel.setCenter(welcomeLabel);
+       
+        LogoutLabel.setCenter(hBoxError);
 
         borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #03DAC6, #018786);");
      
@@ -274,7 +273,7 @@ public class MainScene extends Scene
         languageHBox.setStyle("-fx-spacing: 10px;");
         errorLabel.setTextFill(Color.RED);
         hBoxError.getChildren().add(errorLabel);
-        hBoxError.setAlignment(Pos.BOTTOM_RIGHT);
+        hBoxError.setAlignment(Pos.CENTER);
         LogoutLabel.setStyle(
          "-fx-border-width: 1px 0px 0px 0px; -fx-border-style: solid none none none; " +
           "-fx-border-color: black; -fx-padding: 20px; -fx-background-color: rgba(239,235,235,0.37);");

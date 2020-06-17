@@ -1,5 +1,6 @@
 package contractM;
 
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Date;
@@ -27,6 +28,8 @@ public class MainProgram extends Stage
             M.start(new Stage());
             Login.userSession.cleanUserSession();
             Login.languageCB.setValue(MainScene.languageCB.getValue());
+            MainScene.errorLabel.setText("");
+            MainScene.errorLabel.setTextFill(Color.RED);
             this.close();
         
         });
