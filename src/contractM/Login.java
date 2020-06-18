@@ -1,6 +1,6 @@
 package contractM;
 
-import com.sun.tools.javac.Main;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -60,19 +60,19 @@ public class Login extends Application
         
         
         BorderPane bp = new BorderPane();
-        // bp.setPadding(new Insets(20, 100, 100, 100));
+        
         
         HBox languageHBox = new HBox();
         
         
         HBox hbLogin = new HBox();
-        //hbLogin.setPadding(new Insets(100, 20, 2, 30));
+        
         
         GridPane mainGrid = new GridPane();
         mainGrid.setPadding(new Insets(5, 200, 200, 200));
         
         GridPane gridPane = new GridPane();
-        //gridPane.setPadding(new Insets(40, 40, 40, 40));
+        
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         
@@ -94,7 +94,7 @@ public class Login extends Application
         
         
         HBox hb2 = new HBox();
-        hb2.setPadding(new Insets(5, 20, 0, 5)); ////
+        
         Button btnLogin = I18N.buttonForKey("Login");
         btnLogin.setTextFill(Color.rgb(186, 201, 209));
         btnLogin.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
@@ -141,7 +141,7 @@ public class Login extends Application
         
         
         gridPane.setStyle("-fx-background-color: #ffffff  ;\r\n" +
-         " -fx-padding: 20 10 10 10;\r\n" +
+         " -fx-padding: 10 10 10 10;\r\n" +
          " -fx-background-radius: 20;");
         
         
@@ -156,14 +156,14 @@ public class Login extends Application
         
         hbLogin.setAlignment(Pos.CENTER);
         
-        HBox hBoxError = new HBox(); /*****/
+        HBox hBoxError = new HBox();
         
         errorLabel.setTextFill(Color.RED);
         
         
-        hBoxError.getChildren().add(errorLabel); /*****/
+        hBoxError.getChildren().add(errorLabel);
         hBoxError.setStyle("-fx-background-color: rgba(239,235,235,0.37); -fx-padding: 20px; -fx-alignment: " +
-         "center-right;"); /*****/
+         "center-right;");
         
         
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
@@ -186,11 +186,10 @@ public class Login extends Application
          "-fx-background-color: #00000000;");
         
         
-        //bp.setStyle("-fx-background-color:#2B4857;");
         bp.setStyle("-fx-background-color: linear-gradient(to bottom right, #03DAC6, #018786);");
-        //bp.setTop(hbLogin);
+        
         bp.setCenter(mainGrid);
-        bp.setBottom(hBoxError); /*****/
+        bp.setBottom(hBoxError);
         
         
         
@@ -198,14 +197,12 @@ public class Login extends Application
         var lang = new BorderPane();
         lang.setTop(languageHBox);
         bp.setTop(lang);
-        //bp.setLeft(languageHBox);
+        
         
         Scene scene = new Scene(bp);
         
         scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
         
-        
-        /////////////////////////SIGN UP/////////////////
         
         SignUp signup = new SignUp();
         
@@ -247,7 +244,6 @@ public class Login extends Application
          "    -fx-padding: 3px 15px 3px 15px;\r\n" +
          "    -fx-background-color: #2C3E48;-fx-cursor: hand;"));
         
-        //////////////////////////////////////////////////////////////////////
         
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login");
@@ -258,7 +254,6 @@ public class Login extends Application
         gridPane.requestFocus();
     }
     
-    ///////////DataBase///////////////////////////////////////////////
     
     private void loginUser()
     {

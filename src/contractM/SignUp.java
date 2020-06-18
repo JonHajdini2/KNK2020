@@ -33,7 +33,6 @@ public class SignUp extends BorderPane
     Label errorLabel = new Label();
     public static ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
     
-    /*****/
     
     public SignUp()
     {
@@ -85,7 +84,7 @@ public class SignUp extends BorderPane
         btnLogIn.setOnMouseExited(e -> btnLogIn.setStyle(" -fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 10px 3px 10px;\r\n" +
          "    -fx-background-color: #2C3E48;-fx-cursor: hand;"));
-    
+        
         btnSignUp.setOnMouseEntered(e -> btnSignUp.setStyle("-fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 10px 3px 10px;\r\n" +
          "    -fx-background-color: #2C3E48;-fx-cursor: hand;"));
@@ -96,17 +95,15 @@ public class SignUp extends BorderPane
         HBox hbSignUp = new HBox();
         
         hbSignUp.getChildren().add(textSignUp);
-        // hbSignUp.setPadding(new Insets(20, 20, 2, 30));
+        
         hbSignUp.setAlignment(Pos.CENTER);
         
-        
-        //this.setPadding(new Insets(20, 100, 100, 100));
         
         GridPane mainGrid = new GridPane();
         mainGrid.setPadding(new Insets(5, 200, 200, 200));
         
         GridPane gridPaneSU = new GridPane();
-        //gridPaneSU.setPadding(new Insets(20, 20, 20, 20));
+        
         gridPaneSU.setHgap(10);
         gridPaneSU.setVgap(10);
         
@@ -131,7 +128,7 @@ public class SignUp extends BorderPane
         
         /* Treat Errors */
         HBox hBoxError = new HBox();
-        //errorLabel.setTextFill(Color.RED);
+        
         errorLabel.setTextFill(Color.RED);
         errorLabel.setFont(new Font("Arial", 15));
         hBoxError.getChildren().add(errorLabel);

@@ -43,8 +43,6 @@ public class MainScene extends Scene
 
     public void setup(Stage primaryStage)
     {
-        primaryStage.setX((Screen.getPrimary().getVisualBounds().getWidth() - 1280) / 2);
-        primaryStage.setY((Screen.getPrimary().getVisualBounds().getHeight() - 720) / 2);
 
         BorderPane borderPane = new BorderPane();
 

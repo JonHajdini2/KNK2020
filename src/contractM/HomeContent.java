@@ -1,20 +1,21 @@
 package contractM;
 
-import com.sun.tools.javac.Main;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import static contractM.MainScene.*;
+
 
 public class HomeContent extends GridPane
 {
@@ -45,7 +46,7 @@ public class HomeContent extends GridPane
 
 
         Text homeImageDescription = I18N.getText("Welcometext");
-        homeImageDescription.relocate(50,175);
+     
         Button homeImageButton = new Button("Info");
 
         this.setStyle("-fx-padding: 20px; -fx-vgap: 20px;");
@@ -67,8 +68,8 @@ public class HomeContent extends GridPane
              "-fx-text-fill: black;");
         });
         homeImageButton.setOnAction(e->	Help.about());
-        homeImageButton.relocate(50, 450);
-        homeImageDescription.relocate(50,300);
+        homeImageButton.relocate(75, 450);
+        homeImageDescription.relocate(75,300);
 
 
         hbox2.setPadding(new Insets(50, 50, 50, 50));
@@ -135,7 +136,7 @@ public class HomeContent extends GridPane
         vbox2.getChildren().addAll(searchButton, btn);
 
         hbox2.getChildren().addAll(vbox1, vbox2);
-        hbox2.setSpacing(10);
+        hbox2.setSpacing(40);
         hbox2.setAlignment(Pos.CENTER);
         hbox2.relocate(600,50);
 
