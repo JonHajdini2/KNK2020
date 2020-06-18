@@ -18,6 +18,7 @@ CREATE TABLE employees (
                            Employee_name VARCHAR(20),
                            Employee_surname VARCHAR(20),
                            Employee_birthday DATE,
+                           Employee_gender VARCHAR(10),
                            status VARCHAR(30),
                            Employee_number VARCHAR(15),
                            Employee_email VARCHAR(30),
@@ -56,8 +57,8 @@ CREATE TABLE payment (
 ) ENGINE=INNODB;
 
 
-INSERT INTO employees(Employee_id, Employee_name, Employee_surname,	Employee_birthday,status,Employee_number, Employee_email, Employee_address, Employee_hours)  
-VALUES  (1, "Lirim", "Beka", "2000/08/14", false, "048484848", "beka.lirim@gmail.com", "street", "8");      
+INSERT INTO employees(Employee_id, Employee_name, Employee_surname,	Employee_birthday,Employee_gender, status,Employee_number, Employee_email, Employee_address, Employee_hours)  
+VALUES  (1, "Lirim", "Beka", "2000/08/14" , "Male" , false, "048484848", "beka.lirim@gmail.com", "street", "8");      
 
 
 

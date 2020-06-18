@@ -63,6 +63,7 @@ public class ViewAll extends TableView<EmployeeRecord>
           + "OR employees.Employee_id = '" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR employees.Employee_surname REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR employees.Employee_birthday REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
+          + "OR employees.Employee_gender REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR employees.Employee_number REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR employees.Employee_email REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
           + "OR employees.Employee_address REGEXP '^" + EmployeesMenu.SearchEmployee.getText() + "'"
@@ -89,6 +90,7 @@ public class ViewAll extends TableView<EmployeeRecord>
         TableColumn<EmployeeRecord, String> NameColumn = new TableColumn<>("Name");
         TableColumn<EmployeeRecord, String> SurnameColumn = new TableColumn<>("Surname");
         TableColumn<EmployeeRecord, String> BirthdayColumn = new TableColumn<>("Birthday");
+        TableColumn<EmployeeRecord, String> GenderColumn = new TableColumn<>("Gender");
         TableColumn<EmployeeRecord, Boolean> StatusColumn = new TableColumn<>("Is Married?");
         TableColumn<EmployeeRecord, String> NumberColumn = new TableColumn<>("Number");
         TableColumn<EmployeeRecord, String> EmailColumn = new TableColumn<>("Email");
@@ -105,6 +107,7 @@ public class ViewAll extends TableView<EmployeeRecord>
         this.getColumns().add(NameColumn);
         this.getColumns().add(SurnameColumn);
         this.getColumns().add(BirthdayColumn);
+        this.getColumns().add(GenderColumn);
         this.getColumns().add(StatusColumn);
         this.getColumns().add(NumberColumn);
         this.getColumns().add(EmailColumn);
@@ -121,6 +124,7 @@ public class ViewAll extends TableView<EmployeeRecord>
         NameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         SurnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
         BirthdayColumn.setCellValueFactory(new PropertyValueFactory<>("Birthday"));
+        GenderColumn.setCellValueFactory(new PropertyValueFactory<>("Gender"));
         StatusColumn.setCellValueFactory(new PropertyValueFactory<>("MarriageStatus"));
         NumberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
         EmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -136,14 +140,12 @@ public class ViewAll extends TableView<EmployeeRecord>
         {
             while (rSet.next())
             {
-                
                 this.getItems().add(new EmployeeRecord(rSet.getInt("Employee_id"), rSet.getString("Employee_name"),
-                 rSet.getString("Employee_surname"), rSet.getDate("Employee_birthday"), rSet.getBoolean(
-                 "status"), rSet.getString("Employee_number"), rSet.getString("Employee_email"), rSet.getString(
+                 rSet.getString("Employee_surname"), rSet.getDate("Employee_birthday"),
+                 rSet.getString("Employee_gender"), rSet.getBoolean("status"), rSet.getString("Employee_number"), rSet.getString("Employee_email"), rSet.getString(
                  "Employee_address"), rSet.getInt("Employee_hours"), rSet.getString("job_title"), rSet.getString(
                  "department"), rSet.getDate("Contract_date_begin"), rSet.getDate("Contract_date_due"),
                  rSet.getString("empSalary")));
-                
             }
         }
         catch (SQLException | NullPointerException e)

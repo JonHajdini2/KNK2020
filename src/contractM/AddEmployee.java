@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -18,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AddEmployee extends GridPane
 {
@@ -37,7 +39,12 @@ public class AddEmployee extends GridPane
      " Electrical " + "Engineer", " Computer Scientist"));
     ComboBox<String> empJob = new ComboBox<>(FXCollections.observableArrayList(" Choose Department"));
     
-    CheckBox activeChb = new CheckBox("Married");
+    CheckBox activeChb = I18N.getCheckBox("Married");
+    String Gender = "";
+    ToggleGroup gender = new ToggleGroup();
+    RadioButton femaleButton = I18N.getRadioButton("Female");
+    RadioButton maleButton = I18N.getRadioButton("Male");
+    RadioButton otherButton = I18N.getRadioButton("Other");
     TextField empNetto = new TextField();
     TextField empBonus = new TextField();
     TextField empDeduct = new TextField();
@@ -87,6 +94,19 @@ public class AddEmployee extends GridPane
           (LocalDate.now().getDayOfMonth() + 4) :
           ((LocalDate.now().getDayOfMonth() + 4) % LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()))));
         
+        HBox genderHBox = new HBox();
+        
+        genderHBox.getChildren().addAll(femaleButton, maleButton, otherButton);
+        genderHBox.setSpacing(20);
+        femaleButton.setToggleGroup(gender);
+        femaleButton.setStyle("-fx-cursor: hand;");
+        maleButton.setToggleGroup(gender);
+        maleButton.setStyle("-fx-cursor: hand;");
+        otherButton.setToggleGroup(gender);
+       
+        otherButton.setStyle("-fx-cursor: hand;");
+        
+        
         VBox employeeImageVBox = new VBox();
         
         Image employeeImage = new Image("file:Images/employers.png", 250, 250, true, true);
@@ -123,25 +143,28 @@ public class AddEmployee extends GridPane
         
         label.setStyle("-fx-font-size:15px;-fx-color:rgb(186, 201, 209)");
         label.setPadding(new Insets(0, 0, 20, 0));
-    
+        
         this.add(label, 0, 0, 4, 1);
         this.add(I18N.getLabel("Employee_ID"), 0, 1); this.add(empId, 1, 1);
-        this.add(I18N.getLabel("First_Name"), 0, 2); this.add(empName, 1, 2); this.add(I18N.getLabel("Surname"), 0, 3);
-        this.add(empSurname, 1, 3); this.add(I18N.getLabel("Date_Of_Birth"), 0, 4); this.add(empBirth, 1, 4);
-        this.add(I18N.getLabel("Email"), 0, 5); this.add(empEmail, 1, 5); this.add(I18N.getLabel("Contact"), 0, 6);
-        this.add(empContact, 1, 6); this.add(I18N.getLabel("Address"), 0, 7); this.add(empAddress, 1, 7);
-        this.add(I18N.getLabel("Hour_Work_(per_day)"), 0, 8); this.add(empHours, 1, 8);
+        this.add(I18N.getLabel("First_Name"), 0, 2); this.add(empName, 1, 2);
+        this.add(I18N.getLabel("Surname"), 0, 3); this.add(empSurname, 1, 3);
+        this.add(I18N.getLabel("Date_Of_Birth"), 0, 4); this.add(empBirth, 1, 4);
+        this.add(I18N.getLabel("Gender"), 0, 5); this.add(genderHBox, 1, 5);
+        this.add(I18N.getLabel("e-mail"), 0, 6); this.add(empEmail, 1, 6); this.add(I18N.getLabel("Contact"), 0, 7);
+        this.add(empContact, 1, 7); this.add(I18N.getLabel("Address"), 0, 8); this.add(empAddress, 1, 8);
         this.add(I18N.getLabel("Contract_begin_date"), 0, 9); this.add(empIdConBeg, 1, 9);
         this.add(I18N.getLabel("Contract_due_date"), 0, 10); this.add(empIdConEnd, 1, 10);
-        this.add(I18N.getLabel("Department"), 2, 1); this.add(empDep, 3, 1); this.add(I18N.getLabel("Job_Title"), 2, 2);
-        this.add(empJob, 3, 2); this.add(I18N.getLabel("Status"), 2, 3); this.add(activeChb, 3, 3);
-        this.add(I18N.getLabel("Nett_Salary"), 2, 4); this.add(empNetto, 3, 4);
-        this.add(I18N.getLabel("Bonus_Payment"), 2, 5); this.add(empBonus, 3, 5);
-        this.add(I18N.getLabel("Deduction_Payment"), 2, 6); this.add(empDeduct, 3, 6);
-        this.add(I18N.getLabel("Salary"), 2, 7); this.add(empSalary, 3, 7);
+        
+        this.add(I18N.getLabel("Hour_Work_(per_day)"), 2, 1); this.add(empHours, 3, 1);
+        this.add(I18N.getLabel("Department"), 2, 2); this.add(empDep, 3, 2);
+        this.add(I18N.getLabel("Job_Title"), 2, 3); this.add(empJob, 3, 3);
+        this.add(I18N.getLabel("Status"), 2, 4); this.add(activeChb, 3, 4);
+        this.add(I18N.getLabel("Nett_Salary"), 2, 5); this.add(empNetto, 3, 5);
+        this.add(I18N.getLabel("Bonus_Payment"), 2, 6); this.add(empBonus, 3, 6);
+        this.add(I18N.getLabel("Deduction_Payment"), 2, 7); this.add(empDeduct, 3, 7);
+        this.add(I18N.getLabel("Salary"), 2, 8); this.add(empSalary, 3, 8);
         
         empSalary.setDisable(true);
-        
         
         ForceFieldINT();
         
@@ -198,13 +221,20 @@ public class AddEmployee extends GridPane
         {
             boolean Fill = FillAll(); if (Fill)
         {
-            
-            datetimeBirth = LocalDate.parse(empBirth.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            datetimeBegin = LocalDate.parse(empIdConBeg.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            datetimeEnd = LocalDate.parse(empIdConEnd.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            datebirthstring = datetimeBirth.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            dateBeginstring = datetimeBegin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            dateEndstring = datetimeEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); AddEmp();
+            try
+            {
+                datetimeBirth = LocalDate.parse(empBirth.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                datetimeBegin = LocalDate.parse(empIdConBeg.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                datetimeEnd = LocalDate.parse(empIdConEnd.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                datebirthstring = datetimeBirth.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                dateBeginstring = datetimeBegin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                dateEndstring = datetimeEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); AddEmp();
+            }
+            catch (DateTimeParseException ignored)
+            {
+                MainScene.errorLabel.setText(I18N.getLabel("ParsingError").getText());
+                MainScene.errorLabel.setTextFill(Color.RED);
+            }
             
         }
         else
@@ -218,8 +248,11 @@ public class AddEmployee extends GridPane
     
     public void AddEmp()
     {
-        String query = "Insert into employees(Employee_id, Employee_name, Employee_surname,	Employee_birthday, " +
-         "status," + " Employee_number, Employee_email, Employee_address, Employee_hours) " + "values ('" + empId.getText() + "','" + empName.getText() + "','" + empSurname.getText() + "','" + datebirthstring + "','" + activeChb.isSelected() + "','" + empContact.getText() + "','" + empEmail.getText() + "','" + empAddress.getText() + "','" + empHours.getText() + "')";
+        getgender();
+        
+        String query = "INSERT INTO employees(Employee_id, Employee_name, Employee_surname,	Employee_birthday, " +
+         "Employee_gender, " + "status," + " Employee_number, Employee_email, Employee_address, Employee_hours) " +
+         "values ('" + empId.getText() + "','" + empName.getText() + "','" + empSurname.getText() + "','" + datebirthstring + "','" + Gender + "','" + activeChb.isSelected() + "','" + empContact.getText() + "','" + empEmail.getText() + "','" + empAddress.getText() + "','" + empHours.getText() + "')";
         
         String query2 =
          "Insert into contracts(Contract_date_begin, Contract_date_due, job_title, department,EmpId," + "empSalary )" + "values ('" + dateBeginstring + "','" + dateEndstring + "','" + empJob.getValue() + "','" + empDep.getValue() + "'," + "'" + empId.getText() + "','" + empSalary.getText() + "')";
@@ -262,17 +295,33 @@ public class AddEmployee extends GridPane
         
     }
     
+    public void getgender()
+    {
+        if (femaleButton.isSelected())
+            Gender = "Female";
+        else if (maleButton.isSelected())
+            Gender = "Male";
+        else if (otherButton.isSelected())
+            Gender = "Other";
+    }
+    
+    
     public void clear()
     {
         empId.setText(""); empName.setText(""); empSurname.setText(""); empBirth.setText(""); empContact.setText("");
         empEmail.setText(""); empAddress.setText(""); empIdConBeg.setText(""); empIdConEnd.setText("");
         empHours.setText(""); empDep.setValue(""); empJob.setValue(""); empBonus.setText(""); empDeduct.setText("");
-        empNetto.setText(""); empSalary.setText("");
+        empNetto.setText(""); empSalary.setText(""); gender.selectToggle(null);
     }
     
     public boolean FillAll()
     {
-        return !empId.getText().isEmpty() && !empName.getText().isEmpty() && !empSurname.getText().isEmpty() && !empBirth.getText().isEmpty() && !empContact.getText().isEmpty() && !empEmail.getText().isEmpty() && !empAddress.getText().isEmpty() && !empIdConBeg.getText().isEmpty() && !empIdConEnd.getText().isEmpty() && !empHours.getText().isEmpty() && !empDep.getValue().isEmpty() && !empJob.getValue().isEmpty() && !empBonus.getText().isEmpty() && !empDeduct.getText().isEmpty() && !empNetto.getText().isEmpty() && !empSalary.getText().isEmpty();
+        return
+         !empId.getText().isEmpty() && !empName.getText().isEmpty() && femaleButton.isSelected() || maleButton.isSelected()
+          || otherButton.isSelected() && !empSurname.getText().isEmpty() && !empBirth.getText().isEmpty() && !empContact.getText().isEmpty()
+          && !empEmail.getText().isEmpty() && !empAddress.getText().isEmpty() && !empIdConBeg.getText().isEmpty() && !empIdConEnd.getText().isEmpty()
+          && !empHours.getText().isEmpty() && !empDep.getValue().isEmpty() && !empJob.getValue().isEmpty() && !empBonus.getText().isEmpty()
+          && !empDeduct.getText().isEmpty() && !empNetto.getText().isEmpty() && !empSalary.getText().isEmpty();
     }
     
     
@@ -327,16 +376,16 @@ public class AddEmployee extends GridPane
     {
         // force the field to be numeric only
         ForceINT(empBonus, empNetto, empDeduct, empHours);
-    
+        
         ForceINT(empContact, empId, empSalary, empHours);
     }
     
     private void ForceINT(TextField empContact, TextField empId, TextField empSalary, TextField empHours)
     {
         ForceIntExtract(empContact, empId);
-    
+        
         ForceIntExtract(empHours, empSalary);
-    
+        
     }
     
     private void ForceIntExtract(TextField empContact, TextField empId)

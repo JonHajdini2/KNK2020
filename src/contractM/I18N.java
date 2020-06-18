@@ -93,6 +93,13 @@ public class I18N
         radioitem.textProperty().bind(createStringBinding(key, args));
         return radioitem;
     }
+    
+    public static RadioButton getRadioButton(String key, Object... args)
+    {
+        RadioButton radiobutton = new RadioButton();
+        radiobutton.textProperty().bind(createStringBinding(key, args));
+        return radiobutton;
+    }
 
     public static Text getText(String key, Object... args)
     {
@@ -107,4 +114,13 @@ public class I18N
         textF.textProperty().bind(createStringBinding(key, args));
         return textF;
     }
+    
+    public static CheckBox getCheckBox(String key, Object... args)
+    {
+        CheckBox textCh = new CheckBox();
+        textCh.textProperty().bind(createStringBinding(key, args));
+        return textCh;
+    }
+    
+    
 }

@@ -9,6 +9,7 @@ public class EmployeeRecord
     private String name;
     private String surname;
     private Date birthDate;
+    private String Gender;
     private Boolean MarriageStatus;
     private String number;
     private String email;
@@ -21,14 +22,15 @@ public class EmployeeRecord
     private String salary;
     
     
-    public EmployeeRecord(int id, String name, String surname, Date birthDate, Boolean MarriageStatus, String number,
-                          String email, String address, Integer hours, String job, String department,
+    public EmployeeRecord(int id, String name, String surname, Date birthDate, String Gender, Boolean MarriageStatus,
+                          String number, String email, String address, Integer hours, String job, String department,
                           Date contractBegin, Date contractEnd, String salary)
     {
         this.setId(id);
         this.setName(name);
         this.setSurname(surname);
         this.setBirthday(birthDate);
+        this.setGender(Gender);
         this.setMarriageStatus(MarriageStatus);
         this.setNumber(number);
         this.setEmail(email);
@@ -49,6 +51,8 @@ public class EmployeeRecord
     public String getSurname() { return this.surname; }
     
     public Date getBirthday() { return this.birthDate; }
+    
+    public String getGender() { return this.Gender; }
     
     public Boolean getMarriageStatus() { return this.MarriageStatus; }
     
@@ -78,6 +82,8 @@ public class EmployeeRecord
     public void setName(String name) { this.name = name; }
     
     public void setSurname(String surname) { this.surname = surname; }
+    
+    public void setGender(String gender) { this.Gender = gender; }
     
     public void setMarriageStatus(Boolean MarriageStatus) { this.MarriageStatus = MarriageStatus; }
     
