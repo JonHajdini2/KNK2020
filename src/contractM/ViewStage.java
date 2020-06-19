@@ -21,7 +21,7 @@ public class ViewStage extends Stage
 
         this.setX((Screen.getPrimary().getVisualBounds().getWidth() - 720) / 2);
         this.setY((Screen.getPrimary().getVisualBounds().getHeight() - 480) / 2); this.setTitle("Employees Data");
-        this.setScene(scene); this.sizeToScene(); this.setResizable(false);
+        this.setScene(scene); this.sizeToScene();
     }
 
 }
