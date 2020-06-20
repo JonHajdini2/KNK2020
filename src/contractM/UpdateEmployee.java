@@ -30,13 +30,12 @@ public class UpdateEmployee extends BorderPane
     {
         
         
-        Text Header = new Text("Working on it :("); ScrollPane sp = new ScrollPane(); VBox Content = new VBox();
+        Text Header = new Text("Working on it :("); BorderPane sp = new BorderPane(); VBox Content = new VBox();
         Content.getChildren().add(Header);
         Header.setFill(Color.RED);
     
         
         Content.setStyle("-fx-spacing: 20px;"); Header.setFont(Font.font("Tahoma", FontWeight.NORMAL, 50));
-        sp.setContent(Content); sp.setVbarPolicy(ScrollBarPolicy.ALWAYS); sp.setHbarPolicy(ScrollBarPolicy.NEVER);
         sp.setStyle("-fx-background-color: #00000000; -fx-background: #00000000; -fx-border-width: 1px; " + "-fx" +
          "-border-color: #0000005f; -fx-border-style: solid;");
         BorderPane.setMargin(sp, new Insets(20, 0, 0, 0));

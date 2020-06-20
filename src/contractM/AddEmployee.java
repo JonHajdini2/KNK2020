@@ -1,5 +1,8 @@
 package contractM;
 
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,6 +17,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -103,7 +108,7 @@ public class AddEmployee extends GridPane
         maleButton.setToggleGroup(gender);
         maleButton.setStyle("-fx-cursor: hand;");
         otherButton.setToggleGroup(gender);
-       
+        
         otherButton.setStyle("-fx-cursor: hand;");
         
         
@@ -140,9 +145,24 @@ public class AddEmployee extends GridPane
         
         this.setPadding(new Insets(100, 0, 0, 100)); this.setHgap(40); this.setVgap(10);
         Label label = I18N.getLabel("Employee_Details");
-        
         label.setStyle("-fx-font-size:15px;-fx-color:rgb(186, 201, 209)");
         label.setPadding(new Insets(0, 0, 20, 0));
+        
+        /* --- Just playing around --- */
+        /*Circle circle = new Circle(8);
+        circle.setFill(Color.AQUAMARINE);
+        this.getChildren().add(circle);
+        circle.setTranslateX(-100);
+        circle.setTranslateY(-80);
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(3));
+        transition.setToX(1162);
+        transition.setAutoReverse(true);
+        transition.setCycleCount(Animation.INDEFINITE);
+        transition.setNode(circle);
+        transition.play();*/
+        //////////////////////////
+        
         
         this.add(label, 0, 0, 4, 1);
         this.add(I18N.getLabel("Employee_ID"), 0, 1); this.add(empId, 1, 1);

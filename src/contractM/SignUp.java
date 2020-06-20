@@ -100,7 +100,8 @@ public class SignUp extends BorderPane
         
         
         GridPane mainGrid = new GridPane();
-        mainGrid.setPadding(new Insets(5, 200, 200, 200));
+        mainGrid.setPadding(new Insets(0, 0, 120, 0));
+        mainGrid.setAlignment(Pos.CENTER);
         
         GridPane gridPaneSU = new GridPane();
         
@@ -137,7 +138,7 @@ public class SignUp extends BorderPane
         hBoxError.setStyle("-fx-background-color: rgba(239,235,235,0.37); -fx-padding: 20px; -fx-alignment: " +
          "center-right;");
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
-        languageHBox.setStyle("-fx-padding: 20px 20px 50px 20px; -fx-spacing: 4px;");
+        languageHBox.setStyle("-fx-padding: 20px 20px 0px 0px; -fx-spacing: 4px;");
         languageHBox.setAlignment(Pos.BASELINE_RIGHT);
         languageCB.setValue("EN");
         languageCB.setOnAction(e ->
