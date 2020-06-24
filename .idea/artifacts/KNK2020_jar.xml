@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="KNK2020:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/KNK2020_jar</output-path>
+    <root id="archive" name="KNK2020.jar">
+      <element id="module-output" name="KNK2020" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/src.zip" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javafx.graphics.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql-connector-java-8.0.20.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

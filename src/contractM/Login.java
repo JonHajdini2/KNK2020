@@ -39,7 +39,7 @@ public class Login extends Application
     
     public static UserSession userSession;
     
-    private Stage mainStage;
+    public static Stage mainStage;
     
     MainProgram LoginSuccessStage = new MainProgram();
     

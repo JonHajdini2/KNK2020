@@ -19,7 +19,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -262,9 +265,17 @@ public class SignUp extends BorderPane
                     errorLabel.setTextFill(Color.GREEN);
                     Statement statement = DBConnection.setConnection().createStatement();
                     statement.executeUpdate(query1);
+                    
+                   
+                    MainProgram signup = new MainProgram();
+                    Login.userSession = UserSession.getInstace(userTxt.getText(), new Date());
+                    signup.createMainStage();
                     emailTxt.setText("");
                     passwordTxt.setText("");
                     userTxt.setText("");
+                    Login.mainStage.close();
+                    
+                    
                 }
             }
             catch (SQLException ex)
