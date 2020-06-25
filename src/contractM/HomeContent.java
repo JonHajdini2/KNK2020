@@ -4,7 +4,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -13,6 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class HomeContent extends BorderPane
@@ -92,6 +93,11 @@ public class HomeContent extends BorderPane
         
         
         Review1.getChildren().addAll(starsview, review1_label, review1_label1);
+    
+        
+       
+        
+        
         
         
         VBox Review2 = new VBox();
@@ -114,6 +120,7 @@ public class HomeContent extends BorderPane
         ButtonBox.setSpacing(20);
         ButtonBox.setPadding(new Insets(90, 0, 0, 0));
         ButtonBox.setAlignment(Pos.CENTER);
+        
         Button Right = new Button();
         Image rightarrow = new Image("file:Images/rightarrow.png");
         ImageView rightarrview = new ImageView(rightarrow);
@@ -138,6 +145,8 @@ public class HomeContent extends BorderPane
         ButtonBox.getChildren().addAll(Left, Right);
         
         
+    
+        
         Image diagram = new Image("file:Images/Diagram.png");
         ImageView diagramView = new ImageView(diagram);
         diagramView.setFitWidth(200);
@@ -149,10 +158,65 @@ public class HomeContent extends BorderPane
         rightVbox.getChildren().addAll(Review1, Review2, ButtonBox);
         
         rightVbox.setPadding(new Insets(100, 120, 0, 180));
+    
         
+        AtomicInteger i = new AtomicInteger();
+    
+        Label review1_label2 = new Label("ADD EMPLOYEES");
+        review1_label2.setTextFill(Color.WHITE);
+        review1_label2.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        
+        Right.setOnAction(e->
+        {
+            if(i.get() == 0)
+            {
+                Review1.getChildren().removeAll(starsview, review1_label, review1_label1);
+                Review1.getChildren().setAll(starsview, review1_label, review1_label2);
+                i.addAndGet(1);
+            }
+        });
+    
+        Left.setOnAction(e->
+        {
+            if(i.get() == 1)
+            {
+                Review1.getChildren().removeAll(starsview, review1_label, review1_label2);
+                Review1.getChildren().setAll(starsview, review1_label, review1_label1);
+                i.addAndGet(-1);
+            }
+        });
         this.setLeft(leftVbox);
         this.setRight(rightVbox);
         this.setCenter(diagramView);
     }
+    
+    
+    /*
+    private void loadSecondScene(ActionEvent event) throws IOException
+    {
+        /*Parent root = FXMLLoader.load(getClass().getResource("myscene2.fxml"));
+        Scene scene = anchorRoot.getScene();
+        //Set Y of second scene to Height of window
+        root.translateYProperty().set(scene.getHeight());
+        //Add second scene. Now both first and second scene is present
+        parentContainer.getChildren().add(root);*/
+        
+        //Create new TimeLine animation
+     /*   Timeline timeline = new Timeline();
+        //Animate Y property
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+        timeline.getKeyFrames().add(kf);
+        //After completing animation, remove first scene
+        timeline.setOnFinished(t ->
+        {
+            this.getRight().;
+        });
+        timeline.play();
+    }*/
+    
+    
+    
+    
     
 }
