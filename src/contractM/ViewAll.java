@@ -51,6 +51,9 @@ public class ViewAll extends TableView<EmployeeRecord>
     
     private void setup()
     {
+    
+        MainScene.errorLabel.setText("");
+        
         ResultSet rSet;
         
         

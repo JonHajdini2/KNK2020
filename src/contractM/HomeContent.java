@@ -94,8 +94,8 @@ public class HomeContent extends BorderPane
         
         Review1.getChildren().addAll(starsview, review1_label, review1_label1);
     
-        
-       
+    
+        MainScene.errorLabel.setText("");
         
         
         
@@ -149,9 +149,9 @@ public class HomeContent extends BorderPane
         
         Image diagram = new Image("file:Images/Diagram.png");
         ImageView diagramView = new ImageView(diagram);
-        diagramView.setFitWidth(200);
-        diagramView.setFitHeight(200);
-        diagramView.setTranslateX(70);
+        diagramView.setFitWidth(197);
+        diagramView.setFitHeight(270);
+        diagramView.setTranslateX(100);
         diagramView.setTranslateY(-30);
         
         

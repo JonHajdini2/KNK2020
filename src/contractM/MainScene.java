@@ -44,8 +44,10 @@ public class MainScene extends Scene
     public void setup(Stage primaryStage)
     {
 
+        errorLabel.setText("");
+        
         BorderPane borderPane = new BorderPane();
-
+        
 
         HBox settingsAndLogout = new HBox();
     
@@ -136,7 +138,7 @@ public class MainScene extends Scene
         });
         menuButtons[1].setOnAction(e ->
         {
-            centerBorderPane.setCenter(new UpdateEmployee());
+            centerBorderPane.setCenter(new UpdateEmployee(this));
             menuStatus[1] = true;
             menuStatus[0] = false;
             menuStatus[2] = false;
@@ -231,7 +233,7 @@ public class MainScene extends Scene
         });
         updateButton.setOnAction(e->
         {
-            centerBorderPane.setCenter(new UpdateEmployee());
+            centerBorderPane.setCenter(new UpdateEmployee(this));
         
             menuStatus[1] = true;
             menuStatus[2] = false;

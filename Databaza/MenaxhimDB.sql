@@ -47,9 +47,9 @@ CREATE TABLE contracts (
 
 
 CREATE TABLE payment (
-                         Employee_netto_salary REAL,
-                         Payment_bonus REAL,
-                         tax_ammount REAL,
+                         Employee_netto_salary INT,
+                         Payment_bonus INT,
+                         tax_ammount INT,
                          empId INTEGER,
                          FOREIGN KEY (empId)
                              REFERENCES employees (Employee_id)
@@ -68,6 +68,6 @@ VALUES (400, 200, 100, 1);
 INSERT INTO contracts(Contract_date_begin, Contract_date_due, job_title, department,EmpId,empSalary)
 VALUES ("2020/02/20", "2021/02/20", ".Net Programmer", "Computer Enginner", 1, 500);
 
-
+UPDATE employees SET Employee_name = 'Lirimi', Employee_surname = 'Beka' WHERE Employee_id=1; 
 
 

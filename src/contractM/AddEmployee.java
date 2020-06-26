@@ -1,11 +1,6 @@
 package contractM;
 
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,8 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.util.Duration;
+import javafx.scene.text.Text;
+
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -28,7 +23,6 @@ import java.time.format.DateTimeParseException;
 
 public class AddEmployee extends GridPane
 {
-    public Button btn3 = new Button("<- Back");
     
     TextField empId = new TextField();
     TextField empName = new TextField();
@@ -87,6 +81,9 @@ public class AddEmployee extends GridPane
                 empJob.getItems().addAll(" Data Scientist", " AI Development");
             else empJob.getItems().addAll(" Circ. Components", " Circuits");
         });
+    
+    
+        MainScene.errorLabel.setText("");
         
         
         DatePicker Birth_DatePicker = new DatePicker();
@@ -144,9 +141,14 @@ public class AddEmployee extends GridPane
     });
         
         this.setPadding(new Insets(100, 0, 0, 100)); this.setHgap(40); this.setVgap(10);
-        Label label = I18N.getLabel("Employee_Details");
-        label.setStyle("-fx-font-size:15px;-fx-color:rgb(186, 201, 209)");
-        label.setPadding(new Insets(0, 0, 20, 0));
+        Text label = I18N.getText("Employee_Details");
+        label.setStyle("-fx-font-size:20px; -fx-font-weight: bold; -fx-font-family: " +
+         "Verdana;");
+        label.setFill(Color.WHITE);
+        label.setStroke(Color.BLACK);
+        label.setStrokeWidth(1);
+        
+       
         
         /* --- Just playing around --- */
         /*Circle circle = new Circle(8);
@@ -162,9 +164,14 @@ public class AddEmployee extends GridPane
         transition.setNode(circle);
         transition.play();*/
         //////////////////////////
+        HBox labelbox =  new HBox();
+        labelbox.setStyle("-fx-background-color: #b0deeb");
+        labelbox.setPadding(new Insets(5,0,5,270));
+        labelbox.getChildren().add(label);
+       
         
         
-        this.add(label, 0, 0, 4, 1);
+        this.add(labelbox, 0, 0, 4, 1);
         this.add(I18N.getLabel("Employee_ID"), 0, 1); this.add(empId, 1, 1);
         this.add(I18N.getLabel("First_Name"), 0, 2); this.add(empName, 1, 2);
         this.add(I18N.getLabel("Surname"), 0, 3); this.add(empSurname, 1, 3);
@@ -234,8 +241,7 @@ public class AddEmployee extends GridPane
         
         ClearButton.setOnAction(e -> clear());
         
-        btn3.setStyle("    -fx-padding: 3px 10px 3px 10px;\r\n" + "    -fx-background-color: #2C3E48");
-        btn3.setTextFill(Color.rgb(186, 201, 209));
+  
         
         btAdd.setOnAction(e ->
         {
@@ -314,6 +320,7 @@ public class AddEmployee extends GridPane
         }
         
     }
+
     
     public void getgender()
     {
@@ -337,8 +344,8 @@ public class AddEmployee extends GridPane
     public boolean FillAll()
     {
         return
-         !empId.getText().isEmpty() && !empName.getText().isEmpty() && femaleButton.isSelected() || maleButton.isSelected()
-          || otherButton.isSelected() && !empSurname.getText().isEmpty() && !empBirth.getText().isEmpty() && !empContact.getText().isEmpty()
+         !empId.getText().isEmpty() && !empName.getText().isEmpty() && (femaleButton.isSelected() || maleButton.isSelected()
+          || otherButton.isSelected()) && !empSurname.getText().isEmpty() && !empBirth.getText().isEmpty() && !empContact.getText().isEmpty()
           && !empEmail.getText().isEmpty() && !empAddress.getText().isEmpty() && !empIdConBeg.getText().isEmpty() && !empIdConEnd.getText().isEmpty()
           && !empHours.getText().isEmpty() && !empDep.getValue().isEmpty() && !empJob.getValue().isEmpty() && !empBonus.getText().isEmpty()
           && !empDeduct.getText().isEmpty() && !empNetto.getText().isEmpty() && !empSalary.getText().isEmpty();
