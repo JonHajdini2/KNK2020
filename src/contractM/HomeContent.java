@@ -22,6 +22,10 @@ public class HomeContent extends BorderPane
     
     public static Button searchButton = new Button();
     public static Button updateButton = new Button();
+    public static  Button review1_label2 = new Button("ADD EMPLOYEES");
+    public static  Button review1_label3 = new Button("VIEW EMPLOYEES");
+    public static Button review1_label4 = new Button("UPDATE EMPLOYEES");
+    
     
     public HomeContent(Stage primaryStage, MainScene mainScene)
     {
@@ -87,7 +91,7 @@ public class HomeContent extends BorderPane
         review1_label.setTextFill(Color.WHITE);
         review1_label.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
         review1_label.setPadding(new Insets(40, 0, 0, 0));
-        Label review1_label1 = new Label("UPDATE EMPLOYEES");
+        Label review1_label1 = new Label("MANAGE EMPLOYEES");
         review1_label1.setTextFill(Color.WHITE);
         review1_label1.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
         
@@ -162,16 +166,29 @@ public class HomeContent extends BorderPane
         
         AtomicInteger i = new AtomicInteger();
     
-        Label review1_label2 = new Label("ADD EMPLOYEES");
+       
         review1_label2.setTextFill(Color.WHITE);
         review1_label2.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
-        
+        review1_label2.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-padding: 2px 0 0 0");
+        Label starsview1 = new Label("SERVICES THAT WE OFFER ");
+        starsview1.setStyle("-fx-opacity: 0.9; -fx-text-fill: white; -fx-font-style: italic;" +
+         "-fx-font-family: 'monospace'; -fx-font-size: 11px");
+      
+        review1_label3.setTextFill(Color.WHITE);
+        review1_label3.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        starsview1.setPadding(new Insets(0, 0, 40, 0));
+        review1_label3.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-padding: 2px 0 0 0");
+    
+        review1_label4.setTextFill(Color.WHITE);
+        review1_label4.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        review1_label4.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-padding: 2px 0 0 0");
+      
         Right.setOnAction(e->
         {
             if(i.get() == 0)
             {
                 Review1.getChildren().removeAll(starsview, review1_label, review1_label1);
-                Review1.getChildren().setAll(starsview, review1_label, review1_label2);
+                Review1.getChildren().setAll(starsview1, review1_label3, review1_label4, review1_label2);
                 i.addAndGet(1);
             }
         });
@@ -180,7 +197,7 @@ public class HomeContent extends BorderPane
         {
             if(i.get() == 1)
             {
-                Review1.getChildren().removeAll(starsview, review1_label, review1_label2);
+                Review1.getChildren().removeAll(starsview1, review1_label3, review1_label4,review1_label2);
                 Review1.getChildren().setAll(starsview, review1_label, review1_label1);
                 i.addAndGet(-1);
             }

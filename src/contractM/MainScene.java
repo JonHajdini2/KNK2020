@@ -44,7 +44,6 @@ public class MainScene extends Scene
     public void setup(Stage primaryStage)
     {
 
-        errorLabel.setText("");
         
         BorderPane borderPane = new BorderPane();
         
@@ -201,6 +200,7 @@ public class MainScene extends Scene
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
             menuButtons[0].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            errorLabel.setText("");
         });
         menuButtons[3].setOnMouseEntered(e ->
         {
@@ -213,7 +213,7 @@ public class MainScene extends Scene
                 menuButtons[3].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: " +
                  "solid; -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
-        searchButton.setOnAction(e->
+        review1_label2.setOnAction(e->
         {
             centerBorderPane.setCenter(new AddEmployee(this));
 
@@ -231,7 +231,7 @@ public class MainScene extends Scene
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
 
         });
-        updateButton.setOnAction(e->
+        review1_label4.setOnAction(e->
         {
             centerBorderPane.setCenter(new UpdateEmployee(this));
         
@@ -249,6 +249,25 @@ public class MainScene extends Scene
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
         
         });
+    
+        review1_label3.setOnAction(e->
+        {
+            centerBorderPane.setCenter(new EmployeesMenu(viewStage, this));
+            menuStatus[3] = true;
+            menuStatus[1] = false;
+            menuStatus[2] = false;
+            menuStatus[0] = false;
+            menuButtons[1].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
+             " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[2].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
+             " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[0].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
+             " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[3].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+             "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
+            errorLabel.setText("");
+        });
+        
     
     
         topBorderPane.setCenter(menu);

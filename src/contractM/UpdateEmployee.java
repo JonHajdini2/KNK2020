@@ -264,7 +264,6 @@ public class UpdateEmployee extends GridPane
                         
                         MainScene.errorLabel.setText(I18N.getLabel("Found").getText());
                         MainScene.errorLabel.setTextFill(Color.GREEN);
-                        empBirth.setDisable(false);
                         empEmail.setDisable(false);
                         empContact.setDisable(false);
                         empIdConEnd.setDisable(false);

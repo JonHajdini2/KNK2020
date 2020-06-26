@@ -52,7 +52,7 @@ public class ViewAll extends TableView<EmployeeRecord>
     private void setup()
     {
     
-        MainScene.errorLabel.setText("");
+       
         
         ResultSet rSet;
         
@@ -177,20 +177,19 @@ public class ViewAll extends TableView<EmployeeRecord>
         
         try
         {
+           
             if (rs > 0)
             {
              
                 MainScene.errorLabel.setText(I18N.getLabel("Deletion").getText());
                 MainScene.errorLabel.setTextFill(Color.GREEN);
             }
-            else
+            else if (rs == 0)
             {
-               
-                MainScene.errorLabel.setText(I18N.getLabel("NoDeletion").getText());
-                MainScene.errorLabel.setTextFill(Color.RED);
+             
+               MainScene.errorLabel.setText(I18N.getLabel("NoDeletion").getText());
+               MainScene.errorLabel.setTextFill(Color.RED);
             }
-            
-            
         }
         catch (NullPointerException e)
         {
