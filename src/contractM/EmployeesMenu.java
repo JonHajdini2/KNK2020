@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -62,6 +63,13 @@ public class EmployeesMenu extends VBox
         {
             UpdateEmployee.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+        });
+        UpdateEmployee.setOnAction(e->
+        {
+            MainScene.errorLabel.setText("\t   \t\tSorry :( We are still working on this feature!\nThis one will " +
+             "allow " + "the " +
+             "user to " + "update their employees directly from Data grid");
+            MainScene.errorLabel.setTextFill(Color.RED);
         });
         deleteEmployee.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
          "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");

@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -22,7 +25,7 @@ import static contractM.HomeContent.*;
 
 public class MainScene extends Scene
 {
-
+    
     public Button ExitButton = I18N.buttonForKey("Close");
     public Button logoutButton = I18N.buttonForKey("LogOut");
     public static BorderPane centerBorderPane = new BorderPane();
@@ -31,53 +34,53 @@ public class MainScene extends Scene
      "updateMenuButton"), I18N.buttonForKey("addMenuButton"), I18N.buttonForKey("viewMenuButton")};
     public static ComboBox<String> languageCB = new ComboBox<String>(FXCollections.observableArrayList("AL", "EN"));
     
-
+    
     public static Label errorLabel = new Label();
     public static Label welcomeLabel = new Label();
-
+    
     public MainScene(Stage primaryStage)
     {
         super(new BorderPane(), 1280, 720);
         this.setup(primaryStage);
     }
-
+    
     public void setup(Stage primaryStage)
     {
-
+        
         
         BorderPane borderPane = new BorderPane();
         
-
+        
         HBox settingsAndLogout = new HBox();
-    
-      
+        
+        
         welcomeLabel.setText(Login.userSession.toString());
         BorderPane topBorderPane = new BorderPane();
-
+        
         HBox menu = new HBox();
-
-
+        
+        
         BorderPane LogoutLabel = new BorderPane();
-
-
+        
+        
         HBox languageHBox = new HBox();
-      
+        
         HBox hBoxError = new HBox();
-
-     
+        
+        
         LogoutLabel.setRight(welcomeLabel);
-      
+        
         
         LogoutLabel.setLeft(settingsAndLogout);
-       
+        
         LogoutLabel.setCenter(hBoxError);
-
+        
         borderPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #03DAC6, #018786);");
-     
+        
         borderPane.setCenter(centerBorderPane);
         ExitButton.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " +
          "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
-     
+        
         ExitButton.setOnMouseEntered(e ->
         {
             ExitButton.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
@@ -123,7 +126,11 @@ public class MainScene extends Scene
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
             menuButtons[3].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[0].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+             "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
         });
+        
+        
         menuButtons[0].setOnMouseEntered(e ->
         {
             menuButtons[0].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
@@ -148,6 +155,8 @@ public class MainScene extends Scene
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
             menuButtons[3].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[1].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+             "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
         });
         menuButtons[1].setOnMouseEntered(e ->
         {
@@ -163,7 +172,7 @@ public class MainScene extends Scene
         menuButtons[2].setOnAction(e ->
         {
             centerBorderPane.setCenter(new AddEmployee(this));
-
+            
             menuStatus[2] = true;
             menuStatus[1] = false;
             menuStatus[0] = false;
@@ -174,6 +183,8 @@ public class MainScene extends Scene
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
             menuButtons[3].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
+            menuButtons[2].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+             "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
         });
         menuButtons[2].setOnMouseEntered(e ->
         {
@@ -201,6 +212,9 @@ public class MainScene extends Scene
             menuButtons[0].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid;" +
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
             errorLabel.setText("");
+            menuButtons[3].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+             "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
+            errorLabel.setText("");
         });
         menuButtons[3].setOnMouseEntered(e ->
         {
@@ -213,10 +227,10 @@ public class MainScene extends Scene
                 menuButtons[3].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: " +
                  "solid; -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
-        review1_label2.setOnAction(e->
+        review1_label2.setOnAction(e ->
         {
             centerBorderPane.setCenter(new AddEmployee(this));
-
+            
             menuStatus[2] = true;
             menuStatus[1] = false;
             menuStatus[0] = false;
@@ -229,12 +243,12 @@ public class MainScene extends Scene
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
             menuButtons[2].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
-
+            
         });
-        review1_label4.setOnAction(e->
+        review1_label4.setOnAction(e ->
         {
             centerBorderPane.setCenter(new UpdateEmployee(this));
-        
+            
             menuStatus[1] = true;
             menuStatus[2] = false;
             menuStatus[0] = false;
@@ -247,10 +261,10 @@ public class MainScene extends Scene
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
             menuButtons[1].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
-        
+            
         });
-    
-        review1_label3.setOnAction(e->
+        
+        review1_label3.setOnAction(e ->
         {
             centerBorderPane.setCenter(new EmployeesMenu(viewStage, this));
             menuStatus[3] = true;
@@ -268,8 +282,7 @@ public class MainScene extends Scene
             errorLabel.setText("");
         });
         
-    
-    
+        
         topBorderPane.setCenter(menu);
         topBorderPane.setRight(languageHBox);
         topBorderPane.setStyle("-fx-border-width: 0px 0px 1px 0px; -fx-border-style: none none solid none; " +
@@ -285,7 +298,7 @@ public class MainScene extends Scene
             errorLabel.setText("");
             errorLabel.setTextFill(Color.RED);
             SearchEmployee.setPromptText(I18N.getLabel("SearchEmployee").getText());
-          
+            
         });
         languageHBox.getChildren().addAll(I18N.getLabel("languageLabel"), languageCB);
         languageHBox.setAlignment(Pos.CENTER);
@@ -296,12 +309,42 @@ public class MainScene extends Scene
         LogoutLabel.setStyle(
          "-fx-border-width: 1px 0px 0px 0px; -fx-border-style: solid none none none; " +
           "-fx-border-color: black; -fx-padding: 20px; -fx-background-color: rgba(239,235,235,0.37);");
-
+        
         primaryStage.setOnCloseRequest(e ->
         {
             viewStage.close();
         });
         
+       /* KeyCodeCombination KC = new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN);
+        KeyCodeCombination KC1 = new KeyCodeCombination(KeyCode.U, KeyCombination.CONTROL_DOWN);
+        KeyCodeCombination KC2 = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN);
+        KeyCodeCombination KC3 = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
+        setSaveAccelerator(menuButtons, new KeyCodeCombination[]{KC, KC1, KC2, KC3});*/
+        
+        
         super.setRoot(borderPane);
     }
+    
+    
+   /* private void setSaveAccelerator(Button[] button, KeyCodeCombination[] KC)
+    {
+    
+        for (int i = 0; i < button.length; i++)
+        {
+            Scene scene = button[i].getScene();
+            int finalI = i;
+            scene.getAccelerators().put(
+             KC[i],
+             new Runnable()
+             {
+                 public void run()
+                 {
+                     button[finalI].fire();
+                 }
+             }
+            );
+        }
+       
+       
+    }*/
 }
