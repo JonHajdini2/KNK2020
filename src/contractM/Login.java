@@ -3,6 +3,7 @@ package contractM;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -238,6 +241,11 @@ public class Login extends Application
         btnRegister.setOnMouseExited(e -> btnRegister.setStyle(" -fx-background-radius: 30, 30, 29, 28;\r\n" +
          "    -fx-padding: 3px 15px 3px 15px;\r\n" +
          "    -fx-background-color: #2C3E48;-fx-cursor: hand;"));
+    
+    
+    
+     
+        
         
         
         primaryStage.setScene(scene);

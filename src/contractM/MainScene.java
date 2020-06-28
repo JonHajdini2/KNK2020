@@ -2,26 +2,24 @@ package contractM;
 
 
 import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.Mnemonic;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.Locale;
 
 import static contractM.EmployeesMenu.SearchEmployee;
 import static contractM.HomeContent.*;
+import static javafx.scene.input.KeyCode.*;
 
 public class MainScene extends Scene
 {
@@ -42,6 +40,7 @@ public class MainScene extends Scene
     {
         super(new BorderPane(), 1280, 720);
         this.setup(primaryStage);
+        this.AcKey(menuButtons);
     }
     
     public void setup(Stage primaryStage)
@@ -142,6 +141,12 @@ public class MainScene extends Scene
                 menuButtons[0].setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: " +
                  "solid; -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         });
+    
+ 
+        
+        
+        
+        
         menuButtons[1].setOnAction(e ->
         {
             centerBorderPane.setCenter(new UpdateEmployee(this));
@@ -157,7 +162,11 @@ public class MainScene extends Scene
              " -fx-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
             menuButtons[1].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
              "-fx-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
+           
         });
+    
+       
+        
         menuButtons[1].setOnMouseEntered(e ->
         {
             menuButtons[1].setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
@@ -315,36 +324,64 @@ public class MainScene extends Scene
             viewStage.close();
         });
         
-       /* KeyCodeCombination KC = new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN);
-        KeyCodeCombination KC1 = new KeyCodeCombination(KeyCode.U, KeyCombination.CONTROL_DOWN);
-        KeyCodeCombination KC2 = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN);
-        KeyCodeCombination KC3 = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
-        setSaveAccelerator(menuButtons, new KeyCodeCombination[]{KC, KC1, KC2, KC3});*/
+     
         
         
         super.setRoot(borderPane);
     }
     
     
-   /* private void setSaveAccelerator(Button[] button, KeyCodeCombination[] KC)
+    // Access buttons from keyboard
+    private void AcKey(Button[] buttons)
     {
+        KeyCombination UE = new KeyCodeCombination(U, KeyCombination.ALT_ANY);
+        KeyCombination HM = new KeyCodeCombination(H, KeyCombination.ALT_ANY);
+        KeyCombination AE = new KeyCodeCombination(A, KeyCombination.ALT_ANY);
+        KeyCombination VE = new KeyCodeCombination(V, KeyCombination.ALT_ANY);
+        KeyCombination CL = new KeyCodeCombination(X, KeyCombination.ALT_ANY);
+        KeyCombination LG = new KeyCodeCombination(L, KeyCombination.ALT_ANY);
+        Mnemonic mnU = new Mnemonic(buttons[0], HM);
+        Mnemonic mnE = new Mnemonic(buttons[1], UE);
+        Mnemonic mnA = new Mnemonic(buttons[2], AE);
+        Mnemonic mnV = new Mnemonic(buttons[3], VE);
+        Mnemonic mnC = new Mnemonic(ExitButton, CL);
+        Mnemonic mnL = new Mnemonic(logoutButton, LG);
     
-        for (int i = 0; i < button.length; i++)
+    
+        KeyCombination AL = new KeyCodeCombination(A, KeyCombination.CONTROL_DOWN);
+        KeyCombination EN = new KeyCodeCombination(E, KeyCombination.CONTROL_DOWN);
+        KeyCombination HELP = new KeyCodeCombination(H, KeyCombination.CONTROL_DOWN);
+    
+        Runnable rnA = ()->
         {
-            Scene scene = button[i].getScene();
-            int finalI = i;
-            scene.getAccelerators().put(
-             KC[i],
-             new Runnable()
-             {
-                 public void run()
-                 {
-                     button[finalI].fire();
-                 }
-             }
-            );
-        }
-       
-       
-    }*/
+            languageCB.setValue("AL");
+            I18N.setLocale(new Locale(languageCB.getValue().toLowerCase()));
+            errorLabel.setText("");
+            errorLabel.setTextFill(Color.RED);
+            SearchEmployee.setPromptText(I18N.getLabel("SearchEmployee").getText());
+        };
+    
+        Runnable rnE = ()->
+        {
+            languageCB.setValue("EN");
+            I18N.setLocale(new Locale(languageCB.getValue().toLowerCase()));
+            errorLabel.setText("");
+            errorLabel.setTextFill(Color.RED);
+            SearchEmployee.setPromptText(I18N.getLabel("SearchEmployee").getText());
+        };
+        
+        Runnable help = Help::about;
+        
+        
+        this.addMnemonic(mnU);
+        this.addMnemonic(mnE);
+        this.addMnemonic(mnA);
+        this.addMnemonic(mnV);
+        this.addMnemonic(mnC);
+        this.addMnemonic(mnL);
+    
+        this.getAccelerators().put(AL, rnA);
+        this.getAccelerators().put(EN, rnE);
+        this.getAccelerators().put(HELP, help);
+    }
 }

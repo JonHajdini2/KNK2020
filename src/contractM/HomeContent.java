@@ -20,11 +20,10 @@ public class HomeContent extends BorderPane
 {
     
     
-    public static Button searchButton = new Button();
-    public static Button updateButton = new Button();
     public static  Button review1_label2 = new Button("ADD EMPLOYEES");
     public static  Button review1_label3 = new Button("VIEW EMPLOYEES");
     public static Button review1_label4 = new Button("UPDATE EMPLOYEES");
+    public static Button homeImageButton = new Button("Info");
     
     
     public HomeContent(Stage primaryStage, MainScene mainScene)
@@ -43,7 +42,7 @@ public class HomeContent extends BorderPane
         
         Text homeImageDescription = I18N.getText("Welcometext");
         
-        Button homeImageButton = new Button("Info");
+       
         
         
         homeImageDescription.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
@@ -208,29 +207,7 @@ public class HomeContent extends BorderPane
     }
     
     
-    /*
-    private void loadSecondScene(ActionEvent event) throws IOException
-    {
-        /*Parent root = FXMLLoader.load(getClass().getResource("myscene2.fxml"));
-        Scene scene = anchorRoot.getScene();
-        //Set Y of second scene to Height of window
-        root.translateYProperty().set(scene.getHeight());
-        //Add second scene. Now both first and second scene is present
-        parentContainer.getChildren().add(root);*/
-        
-        //Create new TimeLine animation
-     /*   Timeline timeline = new Timeline();
-        //Animate Y property
-        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-        timeline.getKeyFrames().add(kf);
-        //After completing animation, remove first scene
-        timeline.setOnFinished(t ->
-        {
-            this.getRight().;
-        });
-        timeline.play();
-    }*/
+    
     
     
     

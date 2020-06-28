@@ -7,6 +7,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -67,7 +70,7 @@ public class AddEmployee extends GridPane
     
     public AddEmployee(MainScene ms)
     {
-        super(); this.setup(ms);
+        super(); this.setup(ms); this.AcKeys(ms);
     }
     
     private void setup(MainScene ms)
@@ -81,8 +84,8 @@ public class AddEmployee extends GridPane
                 empJob.getItems().addAll(" Data Scientist", " AI Development");
             else empJob.getItems().addAll(" Circ. Components", " Circuits");
         });
-    
-    
+        
+        
         MainScene.errorLabel.setText("");
         
         
@@ -148,7 +151,7 @@ public class AddEmployee extends GridPane
         label.setStroke(Color.BLACK);
         label.setStrokeWidth(1);
         
-       
+        
         
         /* --- Just playing around --- */
         /*Circle circle = new Circle(8);
@@ -164,11 +167,10 @@ public class AddEmployee extends GridPane
         transition.setNode(circle);
         transition.play();*/
         //////////////////////////
-        HBox labelbox =  new HBox();
+        HBox labelbox = new HBox();
         labelbox.setStyle("-fx-background-color: #b0deeb");
-        labelbox.setPadding(new Insets(5,0,5,270));
+        labelbox.setPadding(new Insets(5, 0, 5, 270));
         labelbox.getChildren().add(label);
-       
         
         
         this.add(labelbox, 0, 0, 4, 1);
@@ -241,33 +243,35 @@ public class AddEmployee extends GridPane
         
         ClearButton.setOnAction(e -> clear());
         
-  
         
         btAdd.setOnAction(e ->
         {
-            boolean Fill = FillAll(); if (Fill)
-        {
-            try
+            boolean Fill = FillAll();
+            
+            
+            if (Fill)
             {
-                datetimeBirth = LocalDate.parse(empBirth.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                datetimeBegin = LocalDate.parse(empIdConBeg.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                datetimeEnd = LocalDate.parse(empIdConEnd.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                datebirthstring = datetimeBirth.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                dateBeginstring = datetimeBegin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                dateEndstring = datetimeEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); AddEmp();
+                try
+                {
+                    datetimeBirth = LocalDate.parse(empBirth.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    datetimeBegin = LocalDate.parse(empIdConBeg.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    datetimeEnd = LocalDate.parse(empIdConEnd.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    datebirthstring = datetimeBirth.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    dateBeginstring = datetimeBegin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    dateEndstring = datetimeEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); AddEmp();
+                }
+                catch (DateTimeParseException ignored)
+                {
+                    MainScene.errorLabel.setText(I18N.getLabel("ParsingError").getText());
+                    MainScene.errorLabel.setTextFill(Color.RED);
+                }
+                
             }
-            catch (DateTimeParseException ignored)
+            else
             {
-                MainScene.errorLabel.setText(I18N.getLabel("ParsingError").getText());
+                MainScene.errorLabel.setText(I18N.getLabel("FillAll").getText());
                 MainScene.errorLabel.setTextFill(Color.RED);
             }
-            
-        }
-        else
-        {
-            MainScene.errorLabel.setText(I18N.getLabel("FillAll").getText());
-            MainScene.errorLabel.setTextFill(Color.RED);
-        }
         });
     }
     
@@ -320,7 +324,7 @@ public class AddEmployee extends GridPane
         }
         
     }
-
+    
     
     public void getgender()
     {
@@ -477,6 +481,50 @@ public class AddEmployee extends GridPane
         
         
     }
+    
+    private void AcKeys(MainScene scene)
+    {
+        
+        KeyCombination ue = new KeyCodeCombination(KeyCode.ENTER, KeyCombination.CONTROL_DOWN);
+        KeyCombination de = new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN);
+        
+        Runnable rnU = () ->
+        {
+            boolean Fill = FillAll();
+            if (Fill)
+            {
+                try
+                {
+                    datetimeBirth = LocalDate.parse(empBirth.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    datetimeBegin = LocalDate.parse(empIdConBeg.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    datetimeEnd = LocalDate.parse(empIdConEnd.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    datebirthstring = datetimeBirth.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    dateBeginstring = datetimeBegin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    dateEndstring = datetimeEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); AddEmp();
+                }
+                catch (DateTimeParseException ignored)
+                {
+                    MainScene.errorLabel.setText(I18N.getLabel("ParsingError").getText());
+                    MainScene.errorLabel.setTextFill(Color.RED);
+                }
+        
+            }
+            else
+            {
+                MainScene.errorLabel.setText(I18N.getLabel("FillAll").getText());
+                MainScene.errorLabel.setTextFill(Color.RED);
+            }
+        };
+        
+        Runnable rnD = this::clear;
+        
+        scene.getAccelerators().put(ue, rnU);
+        
+        scene.getAccelerators().put(de, rnD);
+        
+        
+    }
+    
     
 }
 

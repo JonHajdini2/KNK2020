@@ -3,9 +3,13 @@ package contractM;
 import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -64,7 +68,7 @@ public class UpdateEmployee extends GridPane
     
     public UpdateEmployee(MainScene ms)
     {
-        super(); this.setup(ms);
+        super(); this.setup(ms); this.AcKeys(ms);
     }
     
     private void setup(MainScene ms)
@@ -127,7 +131,8 @@ public class UpdateEmployee extends GridPane
          "-border-color: black; -fx-cursor: hand; -fx-text-fill: black;");
         btUpdate.setOnMouseEntered(e ->
         {
-            btUpdate.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " + "-fx" + "-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
+            btUpdate.setStyle("-fx-background-color: #000000; -fx-border-width: 1px; -fx-border-style: solid; " +
+             "-fx" + "-border-color: black; -fx-cursor: hand; -fx-text-fill: aqua;");
         }); btUpdate.setOnMouseExited(e ->
     {
         btUpdate.setStyle("-fx-background-color: #00000000; -fx-border-width: 1px; -fx-border-style: solid; " + "-fx" +
@@ -283,7 +288,8 @@ public class UpdateEmployee extends GridPane
                         MainScene.errorLabel.setTextFill(Color.RED);
                         empName.setText(""); empSurname.setText(""); empBirth.setText(""); empContact.setText("");
                         empEmail.setText(""); empAddress.setText(""); empIdConBeg.setText(""); empIdConEnd.setText("");
-                        empHours.setText(""); empDep.setValue(""); empJob.setValue(""); empBonus.setText(""); empDeduct.setText("");
+                        empHours.setText(""); empDep.setValue(""); empJob.setValue(""); empBonus.setText("");
+                        empDeduct.setText("");
                         empNetto.setText(""); empSalary.setText(""); gender.selectToggle(null);
                         empBirth.setDisable(true);
                         empEmail.setDisable(true);
@@ -305,7 +311,7 @@ public class UpdateEmployee extends GridPane
             catch (Exception ignored)
             {
                 MainScene.errorLabel.setTextFill(Color.PURPLE);
-               
+                
                 MainScene.errorLabel.setText(I18N.getLabel("EmployeeField").getText());
                 empBirth.setDisable(true);
                 empEmail.setDisable(true);
@@ -337,6 +343,7 @@ public class UpdateEmployee extends GridPane
                 MainScene.errorLabel.setTextFill(Color.RED);
             }
         });
+        
     }
     
     
@@ -571,6 +578,38 @@ public class UpdateEmployee extends GridPane
         
         
     }
+    
+    //Access from keyboards
+    
+    private void AcKeys(MainScene scene)
+    {
+        
+        KeyCombination ue = new KeyCodeCombination(KeyCode.ENTER, KeyCombination.CONTROL_DOWN);
+        KeyCombination de = new KeyCodeCombination(KeyCode.DELETE, KeyCombination.CONTROL_DOWN);
+        
+        Runnable rnU = () ->
+        {
+            boolean Fill = FillAll();
+            if (Fill)
+            {
+                UpdateEmp();
+            }
+            else
+            {
+                MainScene.errorLabel.setText(I18N.getLabel("FillAll").getText());
+                MainScene.errorLabel.setTextFill(Color.RED);
+            }
+        };
+        
+        Runnable rnD = this::clear;
+        
+        scene.getAccelerators().put(ue, rnU);
+        
+        scene.getAccelerators().put(de, rnD);
+        
+        
+    }
+    
     
 }
 
