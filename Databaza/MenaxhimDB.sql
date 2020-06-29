@@ -5,9 +5,9 @@ USE MenaxhimiDB;
 
 
 CREATE TABLE managers (
-                          username     VARCHAR(20) NOT NULL,
-                          uemail       text NOT NULL ,
-                          upassword 	text NOT NULL
+                          username     VARCHAR(20) NOT NULL COLLATE latin1_general_cs,
+                          uemail       text NOT NULL COLLATE latin1_general_cs,
+                          upassword 	text NOT NULL COLLATE latin1_general_cs
 
 )ENGINE=INNODB;
 

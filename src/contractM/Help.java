@@ -30,9 +30,14 @@ public class Help
                 
                 WebEngine webEngine = browser.getEngine();
                 
-                String url = Help.class.getResource("info.html").toExternalForm();
+                String url = "";
+                if (MainScene.languageCB.getValue().equals("EN"))
+                    url = Help.class.getResource("HTML/info.html").toExternalForm();
+                else if (MainScene.languageCB.getValue().equals("AL"))
+                    url = Help.class.getResource("HTML/info-AL.html").toExternalForm();
                 
-                System.out.println("Local URL: " + url);
+                
+                
                 
                 webEngine.load(url);
                 
